@@ -3,13 +3,43 @@ import { prisma } from "@/lib/prisma";
 import { PhotoGallery } from "@/components/PhotoGallery";
 
 const ADVANTAGES = [
-  { title: "Гарантія на всі вироби", text: "На весь асортимент продукції ми пропонуємо гарантію - 3 роки." },
+  { title: "Гарантія 3 роки", text: "На весь асортимент продукції ми пропонуємо гарантію - 3 роки." },
   { title: "Ціна - якість", text: "Дякуючи власному виробництву ми пропонуєм максимальну якість за доступними цінами." },
   { title: "Широка географія", text: "Працюєм по всіх великих містах та регіонах України." },
   { title: "Висока кваліфікація", text: "Наші співробітники мають досвід роботи більш ніж 20 років." },
 ];
 
 const HERO_IMAGES = ["/images/pom3_625.jpg", "/images/pom4_625.jpg", "/images/pom2_625.jpg", "/images/pom1_625.jpg"];
+
+function LatticeMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 32 20" className={className} fill="none" aria-hidden>
+      <path
+        d="M1,2 L9,10 L16,2 L23,10 L31,2 M1,18 L9,10 L16,18 L23,10 L31,18"
+        stroke="currentColor"
+        strokeWidth="2.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function YoutubeIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
+      <path d="M23 12s0-3.4-.44-5.02a2.94 2.94 0 0 0-2.07-2.08C18.88 4.46 12 4.46 12 4.46s-6.88 0-8.49.44A2.94 2.94 0 0 0 1.44 7C1 8.6 1 12 1 12s0 3.4.44 5.02a2.94 2.94 0 0 0 2.07 2.08c1.61.44 8.49.44 8.49.44s6.88 0 8.49-.44a2.94 2.94 0 0 0 2.07-2.08C23 15.4 23 12 23 12ZM9.75 15.02V8.98L15.5 12l-5.75 3.02Z" />
+    </svg>
+  );
+}
+
+function FacebookIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
+      <path d="M13.5 21v-7.9h2.65l.4-3.08H13.5V8.1c0-.89.25-1.5 1.52-1.5h1.63V3.85A21.6 21.6 0 0 0 14.3 3.7c-2.35 0-3.96 1.43-3.96 4.07v2.27H7.68v3.08h2.66V21h3.16Z" />
+    </svg>
+  );
+}
 
 const PARTNERS = [
   "мережа салонів зв'язку «Київстар»",
@@ -30,185 +60,290 @@ export default async function Home() {
 
   return (
     <>
-      <header className="sticky top-0 z-10 border-b border-neutral-200 bg-white/90 backdrop-blur">
+      <div className="hidden border-b border-border bg-card sm:block">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 text-[13px] text-muted-foreground">
+          <div className="flex flex-wrap gap-x-6 gap-y-1">
+            <a href={`mailto:${settings.email}`} className="hover:text-primary">{settings.email}</a>
+            <a href={`mailto:${settings.emailSecondary}`} className="hover:text-primary">{settings.emailSecondary}</a>
+            <span>{settings.workHours}</span>
+          </div>
+          <div className="flex items-center gap-3">
+            {settings.youtubeUrl && (
+              <a href={settings.youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="hover:text-primary">
+                <YoutubeIcon className="h-4 w-4" />
+              </a>
+            )}
+            {settings.facebookUrl && (
+              <a href={settings.facebookUrl} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-primary">
+                <FacebookIcon className="h-4 w-4" />
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+      <header className="sticky top-0 z-10 border-b border-border bg-card/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-          <span className="text-xl font-bold tracking-tight text-neutral-900">МР</span>
-          <nav className="hidden gap-6 text-sm text-neutral-600 sm:flex">
-            <a href="#about" className="hover:text-neutral-900">Про нас</a>
-            <a href="#video" className="hover:text-neutral-900">Відео</a>
-            <a href="#gallery" className="hover:text-neutral-900">Фото об&apos;єктів</a>
-            <a href="#contacts" className="hover:text-neutral-900">Контакти</a>
+          <a href="#home" className="flex items-center gap-2.5">
+            <LatticeMark className="h-4 w-8 text-primary" />
+            <span className="text-lg font-extrabold leading-none tracking-tight text-text sm:text-xl">
+              Майстерня решіток
+            </span>
+          </a>
+          <nav className="hidden gap-6 text-sm font-medium text-muted-foreground lg:flex">
+            <a href="#about" className="hover:text-primary">Про нас</a>
+            <a href="#video" className="hover:text-primary">Відео</a>
+            <a href="#gallery" className="hover:text-primary">Фото об&apos;єктів</a>
+            <a href="#contacts" className="hover:text-primary">Контакти</a>
           </nav>
-          <a href={`tel:${settings.phonePrimary.replace(/[^+\d]/g, "")}`} className="text-sm font-semibold text-neutral-900">
+          <a
+            href={`tel:${settings.phonePrimary.replace(/[^+\d]/g, "")}`}
+            className="whitespace-nowrap rounded-full bg-primary px-3 py-2 text-[11px] font-semibold text-primary-foreground sm:px-4 sm:text-sm"
+          >
             {settings.phonePrimary}
           </a>
         </div>
       </header>
 
       <main className="flex-1">
-        {/* Hero / advantages */}
-        <section id="home" className="mx-auto max-w-6xl px-4 py-12">
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Hero */}
+        <section id="home" className="border-b border-border">
+          <div className="mx-auto max-w-6xl px-4 pt-16 pb-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              Власне виробництво · Україна · з 2004 року
+            </p>
+            <h1 className="mt-4 max-w-3xl text-5xl font-extrabold leading-[1.05] tracking-tight text-text sm:text-6xl lg:text-7xl">
+              Розсувні решітки
+            </h1>
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+              Краща пасивна безпека вашої власності — додаткова перешкода для зловмисників, що
+              майже не займає простору. Ручна робота, стальна смуга, монтаж власними
+              спеціалістами.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="#contacts"
+                className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+              >
+                Отримати розрахунок
+              </a>
+              <a
+                href="#gallery"
+                className="rounded-full border border-border px-6 py-3 text-sm font-semibold text-text transition-colors hover:border-primary hover:text-primary"
+              >
+                Переглянути роботи
+              </a>
+            </div>
+          </div>
+
+          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 px-4 lg:grid-cols-4">
             {HERO_IMAGES.map((src) => (
-              <div key={src} className="aspect-[4/3] overflow-hidden rounded-lg bg-neutral-100">
+              <div key={src} className="aspect-[4/3] overflow-hidden rounded-theme bg-card">
                 <Image src={src} alt="Розсувні решітки" width={400} height={300} className="h-full w-full object-cover" unoptimized />
               </div>
             ))}
           </div>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mx-auto mt-8 max-w-6xl px-4 pb-8">
+            <div className="flex flex-wrap gap-x-10 gap-y-2 rounded-theme border border-border bg-card px-6 py-4 text-sm text-muted-foreground">
+              <span>Гарантія <span className="font-semibold text-primary">3 роки</span></span>
+              <span>Досвід <span className="font-semibold text-primary">20+ років</span></span>
+              <span>Виробництво до <span className="font-semibold text-primary">150 м²/тиждень</span></span>
+              <span>Термін від <span className="font-semibold text-primary">3 днів</span></span>
+            </div>
+          </div>
+        </section>
+
+        {/* Advantages */}
+        <section className="border-b border-border py-12">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 sm:grid-cols-2 lg:grid-cols-4">
             {ADVANTAGES.map((a) => (
-              <div key={a.title} className="rounded-lg border border-neutral-200 p-5">
-                <h3 className="mb-2 font-semibold text-neutral-900">{a.title}</h3>
-                <p className="text-sm text-neutral-600">{a.text}</p>
+              <div key={a.title} className="rounded-theme border border-border bg-card p-6">
+                <span className="mb-4 block h-2 w-8 rounded-full bg-primary" aria-hidden />
+                <h3 className="mb-2 text-lg font-bold text-text">{a.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{a.text}</p>
               </div>
             ))}
           </div>
         </section>
 
         {/* Description & prices */}
-        <section id="about" className="bg-neutral-50 py-14">
-          <div className="mx-auto max-w-3xl px-4 text-neutral-700">
-            <h2 className="mb-6 text-2xl font-bold text-neutral-900">Опис та ціни</h2>
-            <div className="space-y-4 leading-relaxed">
+        <section id="about" className="border-b border-border py-16">
+          <div className="mx-auto max-w-3xl px-4">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Специфікація</p>
+            <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-text">Опис та ціни</h2>
+            <div className="space-y-4 leading-relaxed text-muted-foreground">
               <p>
-                На поточний момент <strong>розсувні решітки</strong> – це один з найнадійніших видів захисту
-                нерухомої власності від проникнення зловмисників.
+                На поточний момент <strong className="text-text">розсувні решітки</strong> – це один з
+                найнадійніших видів захисту нерухомої власності від проникнення зловмисників.
               </p>
               <p>
-                <strong>Головна перевага</strong> даного виду решіток – це створення другого контуру захисту,
-                відразу за вікном, дверима, роллетою. Робота другого контуру захисту відмінно доповнюється
-                сигналізацією, через збільшення часу проникнення непроханих гостей на охороняємий об&apos;єкт.
-                За цей час встигає приїхати оперативна група.
+                <strong className="text-text">Головна перевага</strong> даного виду решіток – це створення другого
+                контуру захисту, відразу за вікном, дверима, роллетою. Робота другого контуру захисту відмінно
+                доповнюється сигналізацією, через збільшення часу проникнення непроханих гостей на охороняємий
+                об&apos;єкт. За цей час встигає приїхати оперативна група.
               </p>
               <p>
-                <strong>Друга перевага</strong> розсувних решіток – це поєднання міцності конструкції, легкості
-                зсування-розсування з естетичним видом. У неробочому стані прибирається з&apos;ємний поріг решітки,
-                сама решітка складається та повертається всередину, не займаючи проходу або просвіту.
+                <strong className="text-text">Друга перевага</strong> розсувних решіток – це поєднання міцності
+                конструкції, легкості зсування-розсування з естетичним видом. У неробочому стані прибирається
+                з&apos;ємний поріг решітки, сама решітка складається та повертається всередину, не займаючи
+                проходу або просвіту.
               </p>
               <p>Весь процес виготовлення виробів відбувається тільки на власному вітчизняному виробництві!</p>
-              <p>
-                Решітки виробляються з стальної смуги 25х4мм та 20х4мм. Смуги кріпляться між собою стальними
-                заклепками виключно вручну. Ваша майбутня розсувна решітка – це повністю ручна робота!
-              </p>
-              <p>Замикання решітки відбувається навісними або врізними замками (за бажанням замовника).</p>
-              <p>Фарбування решіток - полімерно-порошкове в будь-які кольори по каталогу порошкових фарб RAL.</p>
-              <p>
-                Монтаж здійснюється нашими спеціалістами, в процесі робіт віконні або дверні відкоси не
-                руйнуються. Після закінчення робіт місце монтажу ретельно прибирається з використанням
-                будівельного пилососу.
-              </p>
-              <p>Ми працюєм на ринку України з 2004 року.</p>
+
+              <ul className="rivet-list space-y-2 py-2">
+                <li>Смуга 25×4мм та 20×4мм, кріплення — стальні заклепки, виключно вручну</li>
+                <li>Замикання — навісні або врізні замки, за бажанням замовника</li>
+                <li>Фарбування — полімерно-порошкове, будь-який колір по каталогу RAL</li>
+                <li>Монтаж без руйнування відкосів, прибирання будівельним пилососом</li>
+              </ul>
+
               <p>
                 Власне виробництво і полімерно-фарбувальна лінія дозволяють виготовляти до 150м² розсувних
-                решіток в тиждень.
+                решіток в тиждень. Стандартний термін виготовлення – від <strong className="text-text">3 робочих
+                днів</strong>, по попередній згоді можливе термінове виготовлення <strong className="text-text">за
+                1 день</strong>.
               </p>
               <p>
-                Стандартний термін виготовлення виробів – від <strong>3 робочих днів</strong>, по попередній
-                згоді можливе термінове виготовлення <strong>за 1 день</strong>.
-              </p>
-              <p>
-                В більшості міст України маємо наші регіональні представництва, які в найкоротший термін
-                зможуть зробити точні обміри, провести консультацію та зробити якісний монтаж.
-              </p>
-              <p>
-                Готові вироби упаковуються в стретч-плівку або в посилене пакування та доставляються до місця
-                монтажу власним транспортом. В віддалені райони відправка продукції здійснюється
-                компаніями-перевізниками.
+                В більшості міст України маємо наші регіональні представництва, які в найкоротший термін зможуть
+                зробити точні обміри, провести консультацію та зробити якісний монтаж.
               </p>
 
-              <p className="rounded-lg bg-white p-5 text-lg font-semibold text-neutral-900 shadow-sm">
-                Вартість розсувних решіток на теперішній момент – {settings.pricePerM2.toLocaleString("uk-UA")} грн/м²
-                без урахування вартості відправки та монтажу.
-              </p>
-              <p className="text-sm text-neutral-500">
-                На вироби особливо малих та надвеликих розмірів ціна формується з додатковими націнками.
-              </p>
-              <p>Можливі форми оплати: готівковий або безготівковий розрахунок з ПДВ.</p>
+              <div className="mt-6 rounded-theme border border-border bg-card p-6">
+                <p className="text-3xl font-extrabold text-primary sm:text-4xl">
+                  {settings.pricePerM2.toLocaleString("uk-UA")} <span className="text-lg font-medium text-muted-foreground">грн/м²</span>
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Без урахування вартості відправки та монтажу. На вироби особливо малих та надвеликих розмірів
+                  ціна формується з додатковими націнками. Оплата — готівковий або безготівковий розрахунок з ПДВ.
+                </p>
+              </div>
 
-              <h3 className="pt-4 font-semibold text-neutral-900">Нашими постійними партнерами є такі компанії як:</h3>
-              <ul className="list-disc space-y-1 pl-5">
+              <h3 className="pt-6 text-lg font-bold text-text">
+                Постійні партнери
+              </h3>
+              <ul className="rivet-list space-y-1.5">
                 {PARTNERS.map((p) => (
                   <li key={p}>{p}</li>
                 ))}
               </ul>
 
-              <p>
-                Ми завжди відкриті для співпраці з виробничими, будівельними та монтажними організаціями по
-                всій Україні.
+              <p className="pt-2">
+                Ми завжди відкриті для співпраці з виробничими, будівельними та монтажними організаціями по всій
+                Україні. Вся додаткова інформація щодо співпраці або дилерства доступна за нашими контактними
+                телефонами.
               </p>
-              <p>Вся додаткова інформація щодо співпраці або дилерства доступна за нашими контактними телефонами.</p>
             </div>
           </div>
         </section>
 
         {/* Video */}
         {videos.length > 0 && (
-          <section id="video" className="mx-auto max-w-6xl px-4 py-14">
-            <h2 className="mb-8 text-2xl font-bold text-neutral-900">Відео об&apos;єктів</h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {videos.map((video) => {
-                const content = (
-                  <>
-                    <div className="relative aspect-video overflow-hidden rounded-lg bg-neutral-200">
-                      <Image src={video.thumbnailUrl} alt={video.title} fill className="object-cover transition-transform duration-300 group-hover:scale-105" unoptimized />
-                      {video.videoUrl && (
-                        <span className="absolute inset-0 flex items-center justify-center">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-neutral-900">▶</span>
-                        </span>
-                      )}
-                    </div>
-                    <p className="mt-2 text-sm font-medium text-neutral-700">{video.title}</p>
-                  </>
-                );
+          <section id="video" className="border-b border-border py-16">
+            <div className="mx-auto max-w-6xl px-4">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Процес</p>
+              <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-text">
+                Відео об&apos;єктів
+              </h2>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {videos.map((video) => {
+                  const content = (
+                    <>
+                      <div className="relative aspect-video overflow-hidden rounded-theme bg-card">
+                        <Image src={video.thumbnailUrl} alt={video.title} fill className="object-cover transition-transform duration-300 group-hover:scale-105" unoptimized />
+                        {video.videoUrl && (
+                          <span className="absolute inset-0 flex items-center justify-center bg-text/10">
+                            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground">▶</span>
+                          </span>
+                        )}
+                      </div>
+                      <p className="mt-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">{video.title}</p>
+                    </>
+                  );
 
-                return video.videoUrl ? (
-                  <a key={video.id} href={video.videoUrl} target="_blank" rel="noopener noreferrer" className="group block">
-                    {content}
-                  </a>
-                ) : (
-                  <div key={video.id} className="group block">
-                    {content}
-                  </div>
-                );
-              })}
+                  return video.videoUrl ? (
+                    <a key={video.id} href={video.videoUrl} target="_blank" rel="noopener noreferrer" className="group block">
+                      {content}
+                    </a>
+                  ) : (
+                    <div key={video.id} className="group block">
+                      {content}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </section>
         )}
 
         {/* Photo gallery */}
-        <section id="gallery" className="bg-neutral-50 py-14">
+        <section id="gallery" className="border-b border-border py-16">
           <div className="mx-auto max-w-6xl px-4">
-            <h2 className="mb-8 text-2xl font-bold text-neutral-900">Фото об&apos;єктів</h2>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Портфоліо</p>
+            <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-text">
+              Фото об&apos;єктів
+            </h2>
             <PhotoGallery photos={photos} />
           </div>
         </section>
 
         {/* Contacts */}
-        <section id="contacts" className="mx-auto max-w-3xl px-4 py-14">
-          <h2 className="mb-8 text-2xl font-bold text-neutral-900">Зв&apos;язок з нами</h2>
-          <div className="grid gap-6 sm:grid-cols-3">
-            <div>
-              <h3 className="mb-1 text-sm font-semibold text-neutral-500">Телефон</h3>
-              <p className="text-neutral-900">{settings.phonePrimary}</p>
-              <p className="text-neutral-900">{settings.phoneSecondary}</p>
+        <section id="contacts" className="py-16">
+          <div className="mx-auto max-w-3xl px-4">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Контакти</p>
+            <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-text">
+              Зв&apos;язок з нами
+            </h2>
+            <div className="grid gap-6 border-t border-border pt-6 sm:grid-cols-3">
+              <div>
+                <h3 className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Телефон</h3>
+                <p className="text-text">{settings.phonePrimary}</p>
+                <p className="text-text">{settings.phoneSecondary}</p>
+              </div>
+              <div>
+                <h3 className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Часи роботи</h3>
+                <p className="text-text">{settings.workHours}</p>
+              </div>
+              <div>
+                <h3 className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">E-mail</h3>
+                <a href={`mailto:${settings.email}`} className="block text-text hover:text-primary">
+                  {settings.email}
+                </a>
+                <a href={`mailto:${settings.emailSecondary}`} className="block text-text hover:text-primary">
+                  {settings.emailSecondary}
+                </a>
+              </div>
             </div>
-            <div>
-              <h3 className="mb-1 text-sm font-semibold text-neutral-500">Часи роботи</h3>
-              <p className="text-neutral-900">{settings.workHours}</p>
-            </div>
-            <div>
-              <h3 className="mb-1 text-sm font-semibold text-neutral-500">E-mail</h3>
-              <a href={`mailto:${settings.email}`} className="text-neutral-900 hover:underline">
-                {settings.email}
-              </a>
+            <div className="mt-6 flex items-center gap-3">
+              {settings.youtubeUrl && (
+                <a
+                  href={settings.youtubeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="YouTube"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-muted-foreground hover:bg-accent hover:text-primary"
+                >
+                  <YoutubeIcon className="h-4 w-4" />
+                </a>
+              )}
+              {settings.facebookUrl && (
+                <a
+                  href={settings.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-muted-foreground hover:bg-accent hover:text-primary"
+                >
+                  <FacebookIcon className="h-4 w-4" />
+                </a>
+              )}
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-neutral-200 py-6 text-center text-sm text-neutral-500">
-        © {new Date().getFullYear()} МР. Розсувні решітки на вікна та двері.
+      <footer className="flex flex-col items-center gap-2 border-t border-border bg-card py-6 text-xs text-muted-foreground">
+        <LatticeMark className="h-3 w-6 text-primary" />
+        <span>© {new Date().getFullYear()} Майстерня решіток · Компанія-виробник</span>
       </footer>
     </>
   );

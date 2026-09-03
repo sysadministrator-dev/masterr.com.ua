@@ -38,10 +38,10 @@ const videos: {
   title: string;
   order: number;
 }[] = [
-  { thumbnailUrl: "/images/preview-video1.jpg", videoUrl: "", title: "Процес виготовлення розсувних решіток", order: 1 },
-  { thumbnailUrl: "/images/preview-video2.jpg", videoUrl: "", title: "Процес відкриття розсувної решітки", order: 2 },
-  { thumbnailUrl: "/images/preview-video3.jpg", videoUrl: "", title: "Відкриття-зачинення розсувної решітки", order: 3 },
-  { thumbnailUrl: "/images/preview-video4.jpg", videoUrl: "", title: "Робота розсувної решітки в зборі", order: 4 },
+  { thumbnailUrl: "/images/preview-video1.jpg", videoUrl: "https://youtu.be/LCzymiEiY0U", title: "Процес виготовлення розсувних решіток", order: 1 },
+  { thumbnailUrl: "/images/preview-video2.jpg", videoUrl: "https://youtu.be/VU2g9u_BeAY", title: "Процес відкриття розсувної решітки", order: 2 },
+  { thumbnailUrl: "/images/preview-video3.jpg", videoUrl: "https://youtu.be/-8DFHqdSkZg", title: "Відкриття-зачинення розсувної решітки", order: 3 },
+  { thumbnailUrl: "/images/preview-video4.jpg", videoUrl: "https://youtu.be/w3WxF7YAF-M", title: "Робота розсувної решітки в зборі", order: 4 },
 ];
 
 async function main() {

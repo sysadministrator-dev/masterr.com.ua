@@ -45,6 +45,7 @@ next-env.d.ts
 masterr-com-ua.md
 CLAUDE.md
 .claude/*
+saveweb2zip-com-masterr-com-ua/
 
 # prisma sqlite db
 /dev.db

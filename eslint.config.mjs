@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Reference-only snapshot of the old site, not part of the app.
+    "saveweb2zip-com-masterr-com-ua/**",
   ]),
 ]);
 

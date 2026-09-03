@@ -30,8 +30,20 @@ export default async function AdminSettingsPage() {
           <input name="workHours" defaultValue={settings.workHours} className="mt-1 w-full rounded border border-neutral-300 px-3 py-2 text-sm" />
         </div>
         <div>
-          <label className="block text-sm text-neutral-600">E-mail</label>
+          <label className="block text-sm text-neutral-600">E-mail (основний)</label>
           <input name="email" type="email" defaultValue={settings.email} className="mt-1 w-full rounded border border-neutral-300 px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label className="block text-sm text-neutral-600">E-mail (додатковий)</label>
+          <input name="emailSecondary" type="email" defaultValue={settings.emailSecondary} className="mt-1 w-full rounded border border-neutral-300 px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label className="block text-sm text-neutral-600">YouTube-канал</label>
+          <input name="youtubeUrl" defaultValue={settings.youtubeUrl} className="mt-1 w-full rounded border border-neutral-300 px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label className="block text-sm text-neutral-600">Facebook-сторінка</label>
+          <input name="facebookUrl" defaultValue={settings.facebookUrl} className="mt-1 w-full rounded border border-neutral-300 px-3 py-2 text-sm" />
         </div>
         <button type="submit" className="rounded bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-700">
           Зберегти

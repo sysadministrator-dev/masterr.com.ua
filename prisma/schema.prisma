@@ -45,5 +45,8 @@ model SiteSettings {
   phoneSecondary String   @default("+38-073-63-050-63")
   workHours      String   @default("Пн - Сб: 9.00 - 19.00")
   email          String   @default("dborcov@gmail.com")
+  emailSecondary String   @default("inform@masterr.com.ua")
+  youtubeUrl     String   @default("https://www.youtube.com/channel/UCMJ686uwV4tUQAuaVskW6dg")
+  facebookUrl    String   @default("https://www.facebook.com/masterr.com.ua")
   updatedAt      DateTime @updatedAt
 }

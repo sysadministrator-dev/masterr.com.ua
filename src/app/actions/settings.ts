@@ -9,11 +9,16 @@ export async function updateSettings(formData: FormData) {
   const phoneSecondary = String(formData.get("phoneSecondary") ?? "");
   const workHours = String(formData.get("workHours") ?? "");
   const email = String(formData.get("email") ?? "");
+  const emailSecondary = String(formData.get("emailSecondary") ?? "");
+  const youtubeUrl = String(formData.get("youtubeUrl") ?? "");
+  const facebookUrl = String(formData.get("facebookUrl") ?? "");
+
+  const data = { pricePerM2, phonePrimary, phoneSecondary, workHours, email, emailSecondary, youtubeUrl, facebookUrl };
 
   await prisma.siteSettings.upsert({
     where: { id: 1 },
-    update: { pricePerM2, phonePrimary, phoneSecondary, workHours, email },
-    create: { id: 1, pricePerM2, phonePrimary, phoneSecondary, workHours, email },
+    update: data,
+    create: { id: 1, ...data },
   });
 
   revalidatePath("/admin/settings");
