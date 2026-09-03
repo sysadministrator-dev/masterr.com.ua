@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 
 export type SpecCard = {
   icon: ReactNode;
@@ -11,12 +11,24 @@ export type SpecCard = {
 export function SpecCarousel({ cards }: { cards: SpecCard[] }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const count = cards.length;
+  const [height, setHeight] = useState<number>();
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
   const reducedMotion = useRef(false);
+  const count = cards.length;
 
   useEffect(() => {
     reducedMotion.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }, []);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const el = slideRefs.current[index];
+      if (el) setHeight(el.offsetHeight);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [index]);
 
   useEffect(() => {
     if (paused || reducedMotion.current) return;
@@ -32,13 +44,22 @@ export function SpecCarousel({ cards }: { cards: SpecCard[] }) {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="overflow-hidden rounded-theme border border-border bg-card">
+      <div
+        className="overflow-hidden rounded-theme border border-border bg-card transition-[height] duration-300 ease-out motion-reduce:transition-none"
+        style={{ height }}
+      >
         <div
-          className="flex items-stretch transition-transform duration-500 ease-out motion-reduce:transition-none"
+          className="flex items-start transition-transform duration-500 ease-out motion-reduce:transition-none"
           style={{ transform: `translateX(-${index * 100}%)` }}
         >
           {cards.map((card, i) => (
-            <div key={i} className="w-full shrink-0 p-6 sm:p-8">
+            <div
+              key={i}
+              ref={(el) => {
+                slideRefs.current[i] = el;
+              }}
+              className="w-full shrink-0 p-6 sm:p-8"
+            >
               <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent text-primary">
                 {card.icon}
               </span>
