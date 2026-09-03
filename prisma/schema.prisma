@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum PhotoCategory {
+  DOORS
+  WINDOWS
+  LARGE
+}
+
+model Photo {
+  id        Int           @id @default(autoincrement())
+  imageUrl  String
+  title     String
+  category  PhotoCategory
+  order     Int           @default(0)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model Video {
+  id           Int      @id @default(autoincrement())
+  thumbnailUrl String
+  videoUrl     String
+  title        String
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SiteSettings {
+  id             Int      @id @default(1)
+  pricePerM2     Int      @default(3500)
+  phonePrimary   String   @default("+38-067-63-050-63")
+  phoneSecondary String   @default("+38-073-63-050-63")
+  workHours      String   @default("Пн - Сб: 9.00 - 19.00")
+  email          String   @default("dborcov@gmail.com")
+  updatedAt      DateTime @updatedAt
+}
