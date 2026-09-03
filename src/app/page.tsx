@@ -2,6 +2,7 @@ import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { Hero } from "@/components/Hero";
+import { SpecCarousel } from "@/components/SpecCarousel";
 
 export const revalidate = 60;
 
@@ -204,113 +205,114 @@ export default async function Home() {
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Специфікація</p>
             <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-text">Опис та ціни</h2>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-theme border border-border bg-card p-6">
-                <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent text-primary">
-                  <ShieldIcon className="h-5 w-5" />
-                </span>
-                <h3 className="mb-3 text-lg font-bold text-text">Чому саме розсувні решітки?</h3>
-                <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
-                  <p>
-                    На поточний момент <strong className="text-text">розсувні решітки</strong> – це один з
-                    найнадійніших видів захисту нерухомої власності від проникнення зловмисників.
-                  </p>
-                  <p>
-                    <strong className="text-text">Головна перевага</strong> даного виду решіток – це створення
-                    другого контуру захисту, відразу за вікном, дверима, роллетою. Робота другого контуру захисту
-                    відмінно доповнюється сигналізацією, через збільшення часу проникнення непроханих гостей на
-                    охороняємий об&apos;єкт. За цей час встигає приїхати оперативна група.
-                  </p>
-                  <p>
-                    <strong className="text-text">Друга перевага</strong> розсувних решіток – це поєднання
-                    міцності конструкції, легкості зсування-розсування з естетичним видом. У неробочому стані
-                    прибирається з&apos;ємний поріг решітки, сама решітка складається та повертається всередину,
-                    не займаючи проходу або просвіту.
-                  </p>
-                </div>
-              </div>
-
-              <div className="rounded-theme border border-border bg-card p-6">
-                <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent text-primary">
-                  <WrenchIcon className="h-5 w-5" />
-                </span>
-                <h3 className="mb-3 text-lg font-bold text-text">Небагато технічних подробиць</h3>
-                <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
-                  <p>Весь процес виготовлення виробів відбувається тільки на власному вітчизняному виробництві!</p>
-                  <ul className="rivet-list space-y-1.5">
-                    <li>Смуга 25×4мм та 20×4мм, кріплення — стальні заклепки, виключно вручну</li>
-                    <li>Замикання — навісні або врізні замки, за бажанням замовника</li>
-                    <li>Фарбування — полімерно-порошкове, будь-який колір по каталогу RAL</li>
-                    <li>Монтаж без руйнування відкосів, прибирання будівельним пилососом</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="rounded-theme border border-border bg-card p-6">
-                <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent text-primary">
-                  <TruckIcon className="h-5 w-5" />
-                </span>
-                <h3 className="mb-3 text-lg font-bold text-text">Термін виготовлення і доставка</h3>
-                <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
-                  <p>
-                    Власне виробництво і полімерно-фарбувальна лінія дозволяють виготовляти до 150м² розсувних
-                    решіток в тиждень. Стандартний термін виготовлення – від{" "}
-                    <strong className="text-text">3 робочих днів</strong>, по попередній згоді можливе термінове
-                    виготовлення <strong className="text-text">за 1 день</strong>.
-                  </p>
-                  <p>
-                    Готові вироби упаковуються в стретч-плівку або в посилене пакування та доставляються до місця
-                    монтажу власним транспортом. В віддалені райони відправка продукції здійснюється компаніями-перевізниками.
-                  </p>
-                  <p>
-                    В більшості міст України маємо наші регіональні представництва, які в найкоротший термін
-                    зможуть зробити точні обміри, провести консультацію та зробити якісний монтаж.
-                  </p>
-                </div>
-              </div>
-
-              <div className="rounded-theme border border-border bg-card p-6">
-                <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent text-primary">
-                  <TagIcon className="h-5 w-5" />
-                </span>
-                <h3 className="mb-3 text-lg font-bold text-text">Яка ціна?</h3>
-                <p className="text-3xl font-extrabold text-primary sm:text-4xl">
-                  {settings.pricePerM2.toLocaleString("uk-UA")}{" "}
-                  <span className="text-lg font-medium text-muted-foreground">грн/м²</span>
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Без урахування вартості відправки та монтажу. На вироби особливо малих та надвеликих розмірів
-                  ціна формується з додатковими націнками. Оплата — готівковий або безготівковий розрахунок з ПДВ.
-                </p>
-              </div>
-
-              <div className="rounded-theme border border-border bg-card p-6">
-                <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent text-primary">
-                  <UsersIcon className="h-5 w-5" />
-                </span>
-                <h3 className="mb-3 text-lg font-bold text-text">Хто з нами процює?</h3>
-                <p className="mb-3 text-sm leading-relaxed text-muted-foreground">
-                  Нашими постійними партнерами є такі компанії як:
-                </p>
-                <ul className="rivet-list space-y-1.5 text-sm text-muted-foreground">
-                  {PARTNERS.map((p) => (
-                    <li key={p}>{p}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="rounded-theme border border-border bg-card p-6">
-                <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent text-primary">
-                  <MailIcon className="h-5 w-5" />
-                </span>
-                <h3 className="mb-3 text-lg font-bold text-text">Щодо співпраці</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  Ми завжди відкриті для співпраці з виробничими, будівельними та монтажними організаціями по всій
-                  Україні. Вся додаткова інформація щодо співпраці або дилерства доступна за нашими контактними
-                  телефонами.
-                </p>
-              </div>
-            </div>
+            <SpecCarousel
+              cards={[
+                {
+                  icon: <ShieldIcon className="h-5 w-5" />,
+                  title: "Чому саме розсувні решітки?",
+                  body: (
+                    <>
+                      <p>
+                        На поточний момент <strong className="text-text">розсувні решітки</strong> – це один з
+                        найнадійніших видів захисту нерухомої власності від проникнення зловмисників.
+                      </p>
+                      <p>
+                        <strong className="text-text">Головна перевага</strong> даного виду решіток – це створення
+                        другого контуру захисту, відразу за вікном, дверима, роллетою. Робота другого контуру
+                        захисту відмінно доповнюється сигналізацією, через збільшення часу проникнення непроханих
+                        гостей на охороняємий об&apos;єкт. За цей час встигає приїхати оперативна група.
+                      </p>
+                      <p>
+                        <strong className="text-text">Друга перевага</strong> розсувних решіток – це поєднання
+                        міцності конструкції, легкості зсування-розсування з естетичним видом. У неробочому стані
+                        прибирається з&apos;ємний поріг решітки, сама решітка складається та повертається
+                        всередину, не займаючи проходу або просвіту.
+                      </p>
+                    </>
+                  ),
+                },
+                {
+                  icon: <WrenchIcon className="h-5 w-5" />,
+                  title: "Небагато технічних подробиць",
+                  body: (
+                    <>
+                      <p>Весь процес виготовлення виробів відбувається тільки на власному вітчизняному виробництві!</p>
+                      <ul className="rivet-list space-y-1.5">
+                        <li>Смуга 25×4мм та 20×4мм, кріплення — стальні заклепки, виключно вручну</li>
+                        <li>Замикання — навісні або врізні замки, за бажанням замовника</li>
+                        <li>Фарбування — полімерно-порошкове, будь-який колір по каталогу RAL</li>
+                        <li>Монтаж без руйнування відкосів, прибирання будівельним пилососом</li>
+                      </ul>
+                    </>
+                  ),
+                },
+                {
+                  icon: <TruckIcon className="h-5 w-5" />,
+                  title: "Термін виготовлення і доставка",
+                  body: (
+                    <>
+                      <p>
+                        Власне виробництво і полімерно-фарбувальна лінія дозволяють виготовляти до 150м²
+                        розсувних решіток в тиждень. Стандартний термін виготовлення – від{" "}
+                        <strong className="text-text">3 робочих днів</strong>, по попередній згоді можливе
+                        термінове виготовлення <strong className="text-text">за 1 день</strong>.
+                      </p>
+                      <p>
+                        Готові вироби упаковуються в стретч-плівку або в посилене пакування та доставляються до
+                        місця монтажу власним транспортом. В віддалені райони відправка продукції здійснюється
+                        компаніями-перевізниками.
+                      </p>
+                      <p>
+                        В більшості міст України маємо наші регіональні представництва, які в найкоротший термін
+                        зможуть зробити точні обміри, провести консультацію та зробити якісний монтаж.
+                      </p>
+                    </>
+                  ),
+                },
+                {
+                  icon: <TagIcon className="h-5 w-5" />,
+                  title: "Яка ціна?",
+                  body: (
+                    <>
+                      <p className="text-3xl font-extrabold text-primary sm:text-4xl">
+                        {settings.pricePerM2.toLocaleString("uk-UA")}{" "}
+                        <span className="text-lg font-medium text-muted-foreground">грн/м²</span>
+                      </p>
+                      <p>
+                        Без урахування вартості відправки та монтажу. На вироби особливо малих та надвеликих
+                        розмірів ціна формується з додатковими націнками. Оплата — готівковий або безготівковий
+                        розрахунок з ПДВ.
+                      </p>
+                    </>
+                  ),
+                },
+                {
+                  icon: <UsersIcon className="h-5 w-5" />,
+                  title: "Хто з нами процює?",
+                  body: (
+                    <>
+                      <p>Нашими постійними партнерами є такі компанії як:</p>
+                      <ul className="rivet-list space-y-1.5">
+                        {PARTNERS.map((p) => (
+                          <li key={p}>{p}</li>
+                        ))}
+                      </ul>
+                    </>
+                  ),
+                },
+                {
+                  icon: <MailIcon className="h-5 w-5" />,
+                  title: "Щодо співпраці",
+                  body: (
+                    <p>
+                      Ми завжди відкриті для співпраці з виробничими, будівельними та монтажними організаціями по
+                      всій Україні. Вся додаткова інформація щодо співпраці або дилерства доступна за нашими
+                      контактними телефонами.
+                    </p>
+                  ),
+                },
+              ]}
+            />
           </div>
         </section>
 
