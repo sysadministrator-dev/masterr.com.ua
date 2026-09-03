@@ -44,33 +44,7 @@ export function SpecCarousel({ cards }: { cards: SpecCard[] }) {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div
-        className="overflow-hidden rounded-theme border border-border bg-card transition-[height] duration-300 ease-out motion-reduce:transition-none"
-        style={{ height }}
-      >
-        <div
-          className="flex items-start transition-transform duration-500 ease-out motion-reduce:transition-none"
-          style={{ transform: `translateX(-${index * 100}%)` }}
-        >
-          {cards.map((card, i) => (
-            <div
-              key={i}
-              ref={(el) => {
-                slideRefs.current[i] = el;
-              }}
-              className="w-full shrink-0 p-6 sm:p-8"
-            >
-              <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent text-primary">
-                {card.icon}
-              </span>
-              <h3 className="mb-3 text-lg font-bold text-text">{card.title}</h3>
-              <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">{card.body}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-4 flex items-center justify-between">
+      <div className="mb-4 flex items-center justify-between">
         <button
           type="button"
           onClick={() => go(index - 1)}
@@ -99,6 +73,32 @@ export function SpecCarousel({ cards }: { cards: SpecCard[] }) {
         >
           ›
         </button>
+      </div>
+
+      <div
+        className="overflow-hidden rounded-theme border border-border bg-card transition-[height] duration-300 ease-out motion-reduce:transition-none"
+        style={{ height }}
+      >
+        <div
+          className="flex items-start transition-transform duration-500 ease-out motion-reduce:transition-none"
+          style={{ transform: `translateX(-${index * 100}%)` }}
+        >
+          {cards.map((card, i) => (
+            <div
+              key={i}
+              ref={(el) => {
+                slideRefs.current[i] = el;
+              }}
+              className="w-full shrink-0 p-6 sm:p-8"
+            >
+              <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent text-primary">
+                {card.icon}
+              </span>
+              <h3 className="mb-3 text-lg font-bold text-text">{card.title}</h3>
+              <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">{card.body}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
