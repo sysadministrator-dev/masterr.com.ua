@@ -66,7 +66,35 @@ export function Gallery({ children }: { children: React.ReactNode }) {
 }
 
 /**
+ * Number of columns for the current viewport width, matching the grid's
+ * former sm/md/lg breakpoints.
+ */
+function useColumnCount() {
+  const [columns, setColumns] = React.useState(4);
+
+  React.useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      if (w < 640) setColumns(1);
+      else if (w < 768) setColumns(2);
+      else if (w < 1024) setColumns(3);
+      else setColumns(4);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  return columns;
+}
+
+/**
  * Responsive Masonry Grid
+ *
+ * Distributes items round-robin across columns (instead of CSS `columns`,
+ * which balances by estimated height and can leave one column visibly
+ * shorter than the rest) so every column ends up with a near-equal item
+ * count and there's no dead space at the bottom.
  */
 export function GalleryGrid({
   children,
@@ -75,9 +103,18 @@ export function GalleryGrid({
   children: React.ReactNode;
   className?: string;
 }) {
+  const columnCount = useColumnCount();
+  const items = React.Children.toArray(children);
+  const columns: React.ReactNode[][] = Array.from({ length: columnCount }, () => []);
+  items.forEach((item, i) => columns[i % columnCount].push(item));
+
   return (
-    <div className={cn("columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4", className)}>
-      {children}
+    <div className={cn("flex gap-4", className)}>
+      {columns.map((col, i) => (
+        <div key={i} className="flex flex-1 flex-col gap-4">
+          {col}
+        </div>
+      ))}
     </div>
   );
 }
@@ -103,10 +140,7 @@ export function GalleryImage({
     <motion.div
       whileHover="hover"
       whileTap="tap"
-      className={cn(
-        "relative mb-4 break-inside-avoid cursor-zoom-in rounded-xl overflow-hidden",
-        className
-      )}
+      className={cn("relative cursor-zoom-in rounded-xl overflow-hidden", className)}
       onClick={() => context.setSelectedImage({ id, src, alt })}
     >
       <motion.img
