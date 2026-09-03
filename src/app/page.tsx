@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { Hero } from "@/components/Hero";
 
+export const revalidate = 60;
+
 const ADVANTAGES = [
   { title: "Гарантія 3 роки", text: "На весь асортимент продукції ми пропонуємо гарантію - 3 роки." },
   { title: "Ціна - якість", text: "Дякуючи власному виробництву ми пропонуєм максимальну якість за доступними цінами." },
