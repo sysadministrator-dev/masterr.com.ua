@@ -1,18 +1,12 @@
-import { mkdir, writeFile } from "node:fs/promises";
-import path from "node:path";
-
-const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
+import { put } from "@vercel/blob";
 
 export async function saveUploadedFile(file: File): Promise<string> {
-  await mkdir(UPLOAD_DIR, { recursive: true });
-
-  const ext = path.extname(file.name) || ".jpg";
+  const ext = file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".")) : ".jpg";
   const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}${ext}`;
-  const buffer = Buffer.from(await file.arrayBuffer());
 
-  await writeFile(path.join(UPLOAD_DIR, filename), buffer);
+  const blob = await put(filename, file, { access: "public" });
 
-  return `/uploads/${filename}`;
+  return blob.url;
 }
 
 export function isUploadableFile(value: FormDataEntryValue | null): value is File {
