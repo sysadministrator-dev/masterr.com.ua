@@ -69,6 +69,10 @@ export function PhotoGallery({ photos }: { photos: Photo[] }) {
 
   const variants = reducedMotion.current ? NO_MOTION : CATEGORY_VARIANTS[category];
 
+  // Якщо останній ряд (з 4 колонок) неповний і в ньому рівно 2 фото — робимо
+  // їх вдвічі більшими, щоб ряд заповнився і виглядав як акцент, а не хвіст.
+  const trailingBigCount = filtered.length % 4 === 2 ? 2 : 0;
+
   return (
     <div>
       <div className="mb-8 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-widest">
@@ -89,11 +93,21 @@ export function PhotoGallery({ photos }: { photos: Photo[] }) {
 
       <Gallery>
         <GalleryGrid key={category}>
-          {filtered.map((photo, i) => (
-            <motion.div key={photo.id} custom={i} initial="hidden" animate="show" variants={variants}>
-              <GalleryImage id={String(photo.id)} src={photo.imageUrl} alt={photo.title} />
-            </motion.div>
-          ))}
+          {filtered.map((photo, i) => {
+            const big = trailingBigCount > 0 && i >= filtered.length - trailingBigCount;
+            return (
+              <motion.div
+                key={photo.id}
+                custom={i}
+                initial="hidden"
+                animate="show"
+                variants={variants}
+                className={big ? "col-span-2 aspect-[4/3]" : "aspect-[4/3]"}
+              >
+                <GalleryImage id={String(photo.id)} src={photo.imageUrl} alt={photo.title} />
+              </motion.div>
+            );
+          })}
         </GalleryGrid>
       </Gallery>
     </div>
