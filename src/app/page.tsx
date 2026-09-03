@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { PhotoGallery } from "@/components/PhotoGallery";
+import { Hero } from "@/components/Hero";
 
 const ADVANTAGES = [
   { title: "Гарантія 3 роки", text: "На весь асортимент продукції ми пропонуємо гарантію - 3 роки." },
@@ -8,8 +9,6 @@ const ADVANTAGES = [
   { title: "Широка географія", text: "Працюєм по всіх великих містах та регіонах України." },
   { title: "Висока кваліфікація", text: "Наші співробітники мають досвід роботи більш ніж 20 років." },
 ];
-
-const HERO_IMAGES = ["/images/pom3_625.jpg", "/images/pom4_625.jpg", "/images/pom2_625.jpg", "/images/pom1_625.jpg"];
 
 function LatticeMark({ className }: { className?: string }) {
   return (
@@ -107,43 +106,9 @@ export default async function Home() {
       <main className="flex-1">
         {/* Hero */}
         <section id="home" className="border-b border-border">
-          <div className="mx-auto max-w-6xl px-4 pt-16 pb-10">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-              Власне виробництво · Україна · з 2004 року
-            </p>
-            <h1 className="mt-4 max-w-3xl text-5xl font-extrabold leading-[1.05] tracking-tight text-text sm:text-6xl lg:text-7xl">
-              Розсувні решітки
-            </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Краща пасивна безпека вашої власності — додаткова перешкода для зловмисників, що
-              майже не займає простору. Ручна робота, стальна смуга, монтаж власними
-              спеціалістами.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="#contacts"
-                className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
-              >
-                Отримати розрахунок
-              </a>
-              <a
-                href="#gallery"
-                className="rounded-full border border-border px-6 py-3 text-sm font-semibold text-text transition-colors hover:border-primary hover:text-primary"
-              >
-                Переглянути роботи
-              </a>
-            </div>
-          </div>
+          <Hero />
 
-          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 px-4 lg:grid-cols-4">
-            {HERO_IMAGES.map((src) => (
-              <div key={src} className="aspect-[4/3] overflow-hidden rounded-theme bg-card">
-                <Image src={src} alt="Розсувні решітки" width={400} height={300} className="h-full w-full object-cover" unoptimized />
-              </div>
-            ))}
-          </div>
-
-          <div className="mx-auto mt-8 max-w-6xl px-4 pb-8">
+          <div className="mx-auto max-w-6xl px-4 py-8">
             <div className="flex flex-wrap gap-x-10 gap-y-2 rounded-theme border border-border bg-card px-6 py-4 text-sm text-muted-foreground">
               <span>Гарантія <span className="font-semibold text-primary">3 роки</span></span>
               <span>Досвід <span className="font-semibold text-primary">20+ років</span></span>
@@ -168,7 +133,7 @@ export default async function Home() {
 
         {/* Description & prices */}
         <section id="about" className="border-b border-border py-16">
-          <div className="mx-auto max-w-3xl px-4">
+          <div className="mx-auto max-w-6xl px-4">
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Специфікація</p>
             <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-text">Опис та ціни</h2>
             <div className="space-y-4 leading-relaxed text-muted-foreground">
@@ -288,7 +253,7 @@ export default async function Home() {
 
         {/* Contacts */}
         <section id="contacts" className="py-16">
-          <div className="mx-auto max-w-3xl px-4">
+          <div className="mx-auto max-w-6xl px-4">
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Контакти</p>
             <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-text">
               Зв&apos;язок з нами
