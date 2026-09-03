@@ -32,7 +32,7 @@ export function Hero() {
           className="hero-fade-in relative mx-auto aspect-[4/5] w-full max-w-sm lg:max-w-none"
           style={{ animationDelay: "0.2s" }}
         >
-          <div className="absolute inset-0 -rotate-2 overflow-hidden rounded-2xl shadow-xl ring-1 ring-black/5">
+          <div className="absolute inset-[6%] -rotate-2 overflow-hidden rounded-2xl shadow-xl ring-1 ring-black/5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/pom3_625.jpg" alt="Розсувні решітки" className="h-full w-full object-cover" />
           </div>
