@@ -148,7 +148,7 @@ export default async function Home() {
           </div>
         </div>
       </div>
-      <header className="sticky top-0 z-10 border-b border-border bg-card/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
           <a href="#home" className="flex items-center gap-2.5">
             <LatticeMark className="h-4 w-8 text-primary" />
@@ -174,7 +174,7 @@ export default async function Home() {
       <main className="flex-1">
         {/* Hero */}
         <section id="home" className="border-b border-border">
-          <Hero />
+          <Hero pricePerM2={settings.pricePerM2} slides={photos} phonePrimary={settings.phonePrimary} />
 
           <div className="mx-auto max-w-6xl px-4 py-8">
             <div className="flex flex-wrap gap-x-10 gap-y-2 rounded-theme border border-border bg-card px-6 py-4 text-sm text-muted-foreground">

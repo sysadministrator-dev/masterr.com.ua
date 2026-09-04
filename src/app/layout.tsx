@@ -1,13 +1,6 @@
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-
-const openSans = Open_Sans({
-  variable: "--font-sans",
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700", "800"],
-});
 
 export const metadata: Metadata = {
   title: "Розсувні решітки, власне виробництво розсувних решіток | Майстерня Решіток",
@@ -31,7 +24,15 @@ const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="uk" className={`${openSans.variable} h-full antialiased`}>
+    <html lang="uk" className="h-full antialiased">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Google+Sans:opsz,wght@17..18,400..700&subset=latin,cyrillic&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         {children}
         {GA_ID && (
