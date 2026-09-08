@@ -113,15 +113,37 @@ export function Hero({ pricePerM2 = 3500, slides = [], phonePrimary }: HeroProps
           {/* Right Column: Floating Product Card */}
           <div className="lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-end hero-fade-in" style={{ animationDelay: "0.15s" }}>
             <div className="w-full max-w-[370px] overflow-hidden rounded-3xl bg-white p-4 shadow-2xl ring-1 ring-black/10 transition-transform duration-300 hover:scale-[1.01] sm:p-5">
-              {/* Product Preview Image */}
+              {/* Product Preview Image with Slideshow */}
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-100">
-                <Image
-                  src="/images/pom4_625.jpg"
-                  alt="Розсувні решітки на вікна та двері"
-                  fill
-                  className="object-cover transition-transform duration-500 hover:scale-105"
-                />
-                <span className="absolute top-2.5 right-2.5 rounded-full bg-neutral-900/75 px-2.5 py-0.5 text-[11px] font-semibold text-white backdrop-blur-sm">
+                {activeSlides.map((slide, i) => {
+                  const isCurrent = i === index;
+                  const isNear =
+                    Math.abs(i - index) <= 1 ||
+                    (index === 0 && i === activeSlides.length - 1) ||
+                    (index === activeSlides.length - 1 && i === 0);
+
+                  if (!isNear && !isCurrent) return null;
+
+                  return (
+                    <div
+                      key={`card-slide-${slide.imageUrl}-${i}`}
+                      className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+                        isCurrent
+                          ? "opacity-100 scale-100"
+                          : "opacity-0 scale-105 pointer-events-none"
+                      }`}
+                    >
+                      <Image
+                        src={slide.imageUrl}
+                        alt={slide.title || "Розсувні решітки на вікна та двері"}
+                        fill
+                        priority={i === 0}
+                        className="object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                    </div>
+                  );
+                })}
+                <span className="absolute top-2.5 right-2.5 z-10 rounded-full bg-neutral-900/75 px-2.5 py-0.5 text-[11px] font-semibold text-white backdrop-blur-sm">
                   Власне виробництво
                 </span>
               </div>
