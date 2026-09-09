@@ -9,6 +9,8 @@ interface CalculatorModalProps {
   phonePrimary?: string;
 }
 
+const MAX_DIMENSION_CM = 1000; // 10m — practical upper bound for a single grille dimension
+
 export default function CalculatorModal({
   isOpen,
   onClose,
@@ -67,6 +69,15 @@ export default function CalculatorModal({
   };
 
   const cleanPhone = phonePrimary.replace(/[^+\d]/g, "");
+
+  const maxDimension = unit === "cm" ? MAX_DIMENSION_CM : MAX_DIMENSION_CM / 100;
+  const clampDimension = (raw: string) => {
+    const num = parseFloat(raw.replace(",", "."));
+    if (isNaN(num)) return raw;
+    if (num > maxDimension) return maxDimension.toString();
+    if (num < 0) return "0";
+    return raw;
+  };
 
   return (
     <div
@@ -193,8 +204,9 @@ export default function CalculatorModal({
                   type="number"
                   step={unit === "cm" ? "1" : "0.01"}
                   min="0"
+                  max={maxDimension}
                   value={width}
-                  onChange={(e) => setWidth(e.target.value)}
+                  onChange={(e) => setWidth(clampDimension(e.target.value))}
                   placeholder={unit === "cm" ? "150" : "1.50"}
                   className="w-full rounded-2xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-base font-semibold text-neutral-900 transition focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20"
                 />
@@ -215,8 +227,9 @@ export default function CalculatorModal({
                   type="number"
                   step={unit === "cm" ? "1" : "0.01"}
                   min="0"
+                  max={maxDimension}
                   value={height}
-                  onChange={(e) => setHeight(e.target.value)}
+                  onChange={(e) => setHeight(clampDimension(e.target.value))}
                   placeholder={unit === "cm" ? "200" : "2.00"}
                   className="w-full rounded-2xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-base font-semibold text-neutral-900 transition focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20"
                 />
