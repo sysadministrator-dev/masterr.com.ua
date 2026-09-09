@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import CalculatorModal from "@/components/CalculatorModal";
+import ContactModal from "@/components/ContactModal";
 
 export interface HeroSlide {
   imageUrl: string;
@@ -13,6 +14,10 @@ interface HeroProps {
   pricePerM2?: number;
   slides?: HeroSlide[];
   phonePrimary?: string;
+  phoneSecondary?: string;
+  email?: string;
+  emailSecondary?: string;
+  workHours?: string;
 }
 
 const DEFAULT_SLIDES: HeroSlide[] = [
@@ -22,10 +27,19 @@ const DEFAULT_SLIDES: HeroSlide[] = [
   { imageUrl: "/images/pom2_625.jpg", title: "Розсувні решітки на вікна" },
 ];
 
-export function Hero({ pricePerM2 = 3500, slides = [], phonePrimary }: HeroProps) {
+export function Hero({
+  pricePerM2 = 3500,
+  slides = [],
+  phonePrimary,
+  phoneSecondary,
+  email,
+  emailSecondary,
+  workHours,
+}: HeroProps) {
   const activeSlides = slides.length > 0 ? slides : DEFAULT_SLIDES;
   const [index, setIndex] = useState(0);
   const [isCalcOpen, setIsCalcOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
   const oldPrice = pricePerM2 + 400;
 
   useEffect(() => {
@@ -152,7 +166,7 @@ export function Hero({ pricePerM2 = 3500, slides = [], phonePrimary }: HeroProps
               <div className="mt-4 flex items-center justify-between gap-3 border-t border-neutral-100 pt-4">
                 <button
                   type="button"
-                  onClick={() => setIsCalcOpen(true)}
+                  onClick={() => setIsContactOpen(true)}
                   className="cursor-pointer rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-sm transition-opacity hover:opacity-90 sm:text-base"
                 >
                   Замовити
@@ -181,6 +195,17 @@ export function Hero({ pricePerM2 = 3500, slides = [], phonePrimary }: HeroProps
         onClose={() => setIsCalcOpen(false)}
         pricePerM2={pricePerM2}
         phonePrimary={phonePrimary}
+      />
+
+      {/* Contact Details Modal */}
+      <ContactModal
+        isOpen={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
+        phonePrimary={phonePrimary || "+38 (067) 63-050-63"}
+        phoneSecondary={phoneSecondary}
+        email={email}
+        emailSecondary={emailSecondary}
+        workHours={workHours}
       />
 
       <style>{`

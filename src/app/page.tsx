@@ -180,7 +180,15 @@ export default async function Home() {
       <main className="flex-1">
         {/* Hero */}
         <section id="home" className="border-b border-border">
-          <Hero pricePerM2={settings.pricePerM2} slides={photos} phonePrimary={settings.phonePrimary} />
+          <Hero
+            pricePerM2={settings.pricePerM2}
+            slides={photos}
+            phonePrimary={settings.phonePrimary}
+            phoneSecondary={settings.phoneSecondary}
+            email={settings.email}
+            emailSecondary={settings.emailSecondary}
+            workHours={settings.workHours}
+          />
 
           <div className="mx-auto max-w-6xl px-4 py-8">
             <div className="flex flex-wrap gap-x-10 gap-y-2 rounded-theme border border-border bg-card px-6 py-4 text-sm text-muted-foreground">
