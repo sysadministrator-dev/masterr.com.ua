@@ -2,6 +2,7 @@ import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { Hero } from "@/components/Hero";
+import { ProductsSection } from "@/components/ProductsSection";
 import { SpecCarousel } from "@/components/SpecCarousel";
 
 export const revalidate = 60;
@@ -154,7 +155,7 @@ export default async function Home() {
             <LatticeMark className="h-6 w-11 text-primary" />
             <span className="flex items-center gap-2">
               <span className="text-lg font-extrabold uppercase tracking-tight text-white sm:text-xl">
-                Майстерня решіток
+                ФОП Борцов Розсувні Решітки
               </span>
               <span className="hidden flex-col text-[10px] font-medium italic leading-[1.15] text-white/45 sm:flex">
                 <span>захист</span>
@@ -199,6 +200,55 @@ export default async function Home() {
             </div>
           </div>
         </section>
+
+        {/* Products */}
+        <ProductsSection
+          pricePerM2={settings.pricePerM2}
+          phonePrimary={settings.phonePrimary}
+          phoneSecondary={settings.phoneSecondary}
+          email={settings.email}
+          emailSecondary={settings.emailSecondary}
+          workHours={settings.workHours}
+        />
+
+        {/* Video */}
+        {videos.length > 0 && (
+          <section id="video" className="border-b border-border py-16">
+            <div className="mx-auto max-w-6xl px-4">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Процес</p>
+              <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-text">
+                Відео об&apos;єктів
+              </h2>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {videos.map((video) => {
+                  const content = (
+                    <>
+                      <div className="relative aspect-video overflow-hidden rounded-theme bg-card">
+                        <Image src={video.thumbnailUrl} alt={video.title} fill className="object-cover transition-transform duration-300 group-hover:scale-105" unoptimized />
+                        {video.videoUrl && (
+                          <span className="absolute inset-0 flex items-center justify-center bg-text/10">
+                            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground">▶</span>
+                          </span>
+                        )}
+                      </div>
+                      <p className="mt-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">{video.title}</p>
+                    </>
+                  );
+
+                  return video.videoUrl ? (
+                    <a key={video.id} href={video.videoUrl} target="_blank" rel="noopener noreferrer" className="group block">
+                      {content}
+                    </a>
+                  ) : (
+                    <div key={video.id} className="group block">
+                      {content}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Advantages */}
         <section className="border-b border-border py-12">
@@ -329,45 +379,6 @@ export default async function Home() {
             />
           </div>
         </section>
-
-        {/* Video */}
-        {videos.length > 0 && (
-          <section id="video" className="border-b border-border py-16">
-            <div className="mx-auto max-w-6xl px-4">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Процес</p>
-              <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-text">
-                Відео об&apos;єктів
-              </h2>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {videos.map((video) => {
-                  const content = (
-                    <>
-                      <div className="relative aspect-video overflow-hidden rounded-theme bg-card">
-                        <Image src={video.thumbnailUrl} alt={video.title} fill className="object-cover transition-transform duration-300 group-hover:scale-105" unoptimized />
-                        {video.videoUrl && (
-                          <span className="absolute inset-0 flex items-center justify-center bg-text/10">
-                            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground">▶</span>
-                          </span>
-                        )}
-                      </div>
-                      <p className="mt-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">{video.title}</p>
-                    </>
-                  );
-
-                  return video.videoUrl ? (
-                    <a key={video.id} href={video.videoUrl} target="_blank" rel="noopener noreferrer" className="group block">
-                      {content}
-                    </a>
-                  ) : (
-                    <div key={video.id} className="group block">
-                      {content}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* Photo gallery */}
         <section id="gallery" className="border-b border-border py-16">
