@@ -127,44 +127,50 @@ export default async function Home() {
 
   return (
     <>
-      <div className="hidden border-b border-border bg-card sm:block">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 text-[13px] text-muted-foreground">
+      <div className="hidden border-b border-white/10 bg-neutral-950 sm:block">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 text-[13px] text-white/50">
           <div className="flex flex-wrap gap-x-6 gap-y-1">
-            <a href={`mailto:${settings.email}`} className="hover:text-primary">{settings.email}</a>
-            <a href={`mailto:${settings.emailSecondary}`} className="hover:text-primary">{settings.emailSecondary}</a>
+            <a href={`mailto:${settings.email}`} className="hover:text-white">{settings.email}</a>
+            <a href={`mailto:${settings.emailSecondary}`} className="hover:text-white">{settings.emailSecondary}</a>
             <span>{settings.workHours}</span>
           </div>
           <div className="flex items-center gap-3">
             {settings.youtubeUrl && (
-              <a href={settings.youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="hover:text-primary">
+              <a href={settings.youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="hover:text-white">
                 <YoutubeIcon className="h-4 w-4" />
               </a>
             )}
             {settings.facebookUrl && (
-              <a href={settings.facebookUrl} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-primary">
+              <a href={settings.facebookUrl} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-white">
                 <FacebookIcon className="h-4 w-4" />
               </a>
             )}
           </div>
         </div>
       </div>
-      <header className="sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-neutral-950/95 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5">
           <a href="#home" className="flex items-center gap-2.5">
-            <LatticeMark className="h-4 w-8 text-primary" />
-            <span className="text-lg font-extrabold leading-none tracking-tight text-text sm:text-xl">
-              Майстерня решіток
+            <LatticeMark className="h-6 w-11 text-primary" />
+            <span className="flex items-center gap-2">
+              <span className="text-lg font-extrabold uppercase tracking-tight text-white sm:text-xl">
+                Майстерня решіток
+              </span>
+              <span className="hidden flex-col text-[10px] font-medium italic leading-[1.15] text-white/45 sm:flex">
+                <span>захист</span>
+                <span>та монтаж</span>
+              </span>
             </span>
           </a>
-          <nav className="hidden gap-6 text-sm font-medium text-muted-foreground lg:flex">
-            <a href="#about" className="hover:text-primary">Про нас</a>
-            <a href="#video" className="hover:text-primary">Відео</a>
-            <a href="#gallery" className="hover:text-primary">Фото об&apos;єктів</a>
-            <a href="#contacts" className="hover:text-primary">Контакти</a>
+          <nav className="hidden gap-8 text-[15px] font-semibold text-white/85 lg:flex">
+            <a href="#about" className="transition-colors hover:text-white">Про нас</a>
+            <a href="#video" className="transition-colors hover:text-white">Відео</a>
+            <a href="#gallery" className="transition-colors hover:text-white">Фото об&apos;єктів</a>
+            <a href="#contacts" className="transition-colors hover:text-white">Контакти</a>
           </nav>
           <a
             href={`tel:${settings.phonePrimary.replace(/[^+\d]/g, "")}`}
-            className="whitespace-nowrap rounded-full bg-primary px-3 py-2 text-[11px] font-semibold text-primary-foreground sm:px-4 sm:text-sm"
+            className="whitespace-nowrap rounded-full border border-white/30 px-3 py-2 text-[11px] font-semibold text-white transition-colors hover:bg-white hover:text-neutral-950 sm:px-4 sm:text-sm"
           >
             {settings.phonePrimary}
           </a>
