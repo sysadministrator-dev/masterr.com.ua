@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import CalculatorModal from "@/components/CalculatorModal";
 
@@ -26,15 +26,10 @@ export function Hero({ pricePerM2 = 3500, slides = [], phonePrimary }: HeroProps
   const activeSlides = slides.length > 0 ? slides : DEFAULT_SLIDES;
   const [index, setIndex] = useState(0);
   const [isCalcOpen, setIsCalcOpen] = useState(false);
-  const reducedMotion = useRef(false);
   const oldPrice = pricePerM2 + 400;
 
   useEffect(() => {
-    reducedMotion.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  }, []);
-
-  useEffect(() => {
-    if (reducedMotion.current || activeSlides.length <= 1) return;
+    if (activeSlides.length <= 1) return;
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % activeSlides.length);
     }, 3000);
@@ -58,7 +53,7 @@ export function Hero({ pricePerM2 = 3500, slides = [], phonePrimary }: HeroProps
           return (
             <div
               key={`${slide.imageUrl}-${i}`}
-              className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+              className={`hero-slide absolute inset-0 transition-all duration-1000 ease-in-out ${
                 isCurrent
                   ? "opacity-85 scale-100"
                   : "opacity-0 scale-105 pointer-events-none"
@@ -127,7 +122,7 @@ export function Hero({ pricePerM2 = 3500, slides = [], phonePrimary }: HeroProps
                   return (
                     <div
                       key={`card-slide-${slide.imageUrl}-${i}`}
-                      className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+                      className={`hero-slide absolute inset-0 transition-all duration-1000 ease-in-out ${
                         isCurrent
                           ? "opacity-100 scale-100"
                           : "opacity-0 scale-105 pointer-events-none"
@@ -199,6 +194,7 @@ export function Hero({ pricePerM2 = 3500, slides = [], phonePrimary }: HeroProps
         }
         @media (prefers-reduced-motion: reduce) {
           .hero-fade-in { animation: none; opacity: 1; transform: none; }
+          .hero-slide { transition: opacity 0.3s linear; }
         }
       `}</style>
     </div>
