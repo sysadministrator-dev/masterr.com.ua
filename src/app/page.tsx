@@ -1,8 +1,8 @@
-import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { Hero } from "@/components/Hero";
 import { ProductsSection } from "@/components/ProductsSection";
+import { VideoSection } from "@/components/VideoSection";
 import { SpecCarousel } from "@/components/SpecCarousel";
 
 export const revalidate = 60;
@@ -120,9 +120,8 @@ const PARTNERS = [
 ];
 
 export default async function Home() {
-  const [photos, videos, settings] = await Promise.all([
+  const [photos, settings] = await Promise.all([
     prisma.photo.findMany({ orderBy: { order: "asc" } }),
-    prisma.video.findMany({ orderBy: { order: "asc" } }),
     prisma.siteSettings.upsert({ where: { id: 1 }, update: {}, create: { id: 1 } }),
   ]);
 
@@ -212,43 +211,7 @@ export default async function Home() {
         />
 
         {/* Video */}
-        {videos.length > 0 && (
-          <section id="video" className="border-b border-border py-16">
-            <div className="mx-auto max-w-6xl px-4">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Процес</p>
-              <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-text">
-                Відео об&apos;єктів
-              </h2>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {videos.map((video) => {
-                  const content = (
-                    <>
-                      <div className="relative aspect-video overflow-hidden rounded-theme bg-card">
-                        <Image src={video.thumbnailUrl} alt={video.title} fill className="object-cover transition-transform duration-300 group-hover:scale-105" unoptimized />
-                        {video.videoUrl && (
-                          <span className="absolute inset-0 flex items-center justify-center bg-text/10">
-                            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground">▶</span>
-                          </span>
-                        )}
-                      </div>
-                      <p className="mt-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">{video.title}</p>
-                    </>
-                  );
-
-                  return video.videoUrl ? (
-                    <a key={video.id} href={video.videoUrl} target="_blank" rel="noopener noreferrer" className="group block">
-                      {content}
-                    </a>
-                  ) : (
-                    <div key={video.id} className="group block">
-                      {content}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-        )}
+        <VideoSection />
 
         {/* Advantages */}
         <section className="border-b border-border py-12">
