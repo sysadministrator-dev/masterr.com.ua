@@ -9,7 +9,7 @@ export interface ProductItem {
 export const PRODUCTS: ProductItem[] = [
   {
     id: 1,
-    title: "Розсувні решітки на балконні двері",
+    title: "Розсувні решітки на двері",
     primaryImage: "/images/products/1-primary.jpg",
     hoverImage: "/images/products/1-hover.jpg",
   },
