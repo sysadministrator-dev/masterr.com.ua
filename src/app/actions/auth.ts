@@ -5,10 +5,16 @@ import { redirect } from "next/navigation";
 import { COOKIE_NAME, MAX_AGE_SECONDS, createSessionToken } from "@/lib/auth";
 
 export async function login(_prevState: { error?: string } | undefined, formData: FormData) {
+  const username = formData.get("username");
   const password = formData.get("password");
 
-  if (typeof password !== "string" || password !== process.env.ADMIN_PASSWORD) {
-    return { error: "Невірний пароль" };
+  if (
+    typeof username !== "string" ||
+    typeof password !== "string" ||
+    username !== process.env.ADMIN_USERNAME ||
+    password !== process.env.ADMIN_PASSWORD
+  ) {
+    return { error: "Невірний логін або пароль" };
   }
 
   const token = await createSessionToken();

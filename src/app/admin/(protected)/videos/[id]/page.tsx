@@ -23,7 +23,7 @@ export default async function EditVideoPage({ params }: { params: Promise<{ id: 
 
       <Image src={video.thumbnailUrl} alt={video.title} width={160} height={160} className="h-40 w-40 rounded object-cover" unoptimized />
 
-      <form action={updateVideoWithId} className="space-y-3 rounded-lg border border-neutral-200 bg-white p-6" encType="multipart/form-data">
+      <form action={updateVideoWithId} className="space-y-3 rounded-lg border border-neutral-200 bg-white p-6">
         <div>
           <label className="block text-sm text-neutral-600">Новий файл прев&apos;ю (необов&apos;язково)</label>
           <input type="file" name="thumbnailFile" accept="image/*" className="mt-1 w-full text-sm" />

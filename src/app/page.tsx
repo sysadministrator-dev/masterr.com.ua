@@ -91,8 +91,9 @@ const PARTNERS = [
 ];
 
 export default async function Home() {
-  const [photos, settings] = await Promise.all([
+  const [photos, videos, settings] = await Promise.all([
     prisma.photo.findMany({ orderBy: { order: "asc" } }),
+    prisma.video.findMany({ orderBy: { order: "asc" } }),
     prisma.siteSettings.upsert({ where: { id: 1 }, update: {}, create: { id: 1 } }),
   ]);
 
@@ -184,7 +185,7 @@ export default async function Home() {
         />
 
         {/* Video */}
-        <VideoSection />
+        <VideoSection videos={videos} />
 
         {/* Advantages */}
         <section className="py-12">
@@ -330,8 +331,8 @@ export default async function Home() {
         </section>
 
         {/* Contacts */}
-        <section id="contacts" className="rounded-t-[25%] bg-neutral-950 py-16">
-          <div className="mx-auto max-w-6xl px-4">
+        <section id="contacts" className="bg-neutral-950 pt-16 pb-10">
+          <div className="mx-auto max-w-6xl px-6 sm:px-8">
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Контакти</p>
             <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-white">
               Зв&apos;язок з нами
@@ -385,7 +386,7 @@ export default async function Home() {
         </section>
       </main>
 
-      <footer className="flex flex-col items-center gap-2 border-t border-white/10 bg-neutral-950 py-6 text-xs text-white/50">
+      <footer className="flex flex-col items-center gap-2 border-t border-white/10 bg-neutral-950 py-4 text-xs text-white/50">
         <span>© {new Date().getFullYear()} ФОП БОРЦОВ РОЗСУВНІ РЕШІТКИ · HandyVPS</span>
       </footer>
     </>

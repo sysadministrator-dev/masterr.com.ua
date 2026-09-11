@@ -13,7 +13,6 @@ export default async function AdminVideosPage() {
       <form
         action={createVideo}
         className="space-y-3 rounded-lg border border-neutral-200 bg-white p-6"
-        encType="multipart/form-data"
       >
         <h2 className="font-medium text-neutral-900">Додати відео</h2>
         <div>

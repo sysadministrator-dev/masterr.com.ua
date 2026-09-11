@@ -3,6 +3,8 @@ export interface ProductItem {
   title: string;
   primaryImage: string;
   hoverImage: string;
+  /** Якщо задано — картка показує "Від {priceFrom} ₴/м²" замість загальної ціни сайту. */
+  priceFrom?: number;
 }
 
 // Кожна позиція редагується окремо: primaryImage — основне фото, hoverImage — фото при наведенні (плавна заміна за 1с).
@@ -48,6 +50,7 @@ export const PRODUCTS: ProductItem[] = [
     title: "Розсувні решітки особливо малих розмірів",
     primaryImage: "/images/products/7-primary.jpg",
     hoverImage: "/images/products/7-hover.jpg",
+    priceFrom: 5500,
   },
   {
     id: 8,
@@ -60,6 +63,7 @@ export const PRODUCTS: ProductItem[] = [
     title: "Розсувні решітки з врізним замком",
     primaryImage: "/images/products/9-primary.jpg",
     hoverImage: "/images/products/9-hover.jpg",
+    priceFrom: 5900,
   },
   {
     id: 10,
@@ -78,5 +82,6 @@ export const PRODUCTS: ProductItem[] = [
     title: "Розсувні решітки різнокольорові",
     primaryImage: "/images/products/12-primary.jpg",
     hoverImage: "/images/products/12-hover.jpg",
+    priceFrom: 3600,
   },
 ];

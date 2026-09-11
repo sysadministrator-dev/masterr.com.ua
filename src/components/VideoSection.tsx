@@ -1,7 +1,13 @@
 import Image from "next/image";
-import { VIDEOS } from "@/components/videosData";
 
-export function VideoSection() {
+export interface VideoSectionItem {
+  id: number;
+  title: string;
+  thumbnailUrl: string;
+  videoUrl: string;
+}
+
+export function VideoSection({ videos }: { videos: VideoSectionItem[] }) {
   return (
     <section id="video" className="border-b border-border py-16">
       <div className="mx-auto max-w-6xl px-4">
@@ -9,7 +15,7 @@ export function VideoSection() {
         <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-text">Відео об&apos;єктів</h2>
 
         <div className="flex max-h-[75vh] snap-y snap-mandatory flex-col gap-4 overflow-y-auto pb-1 sm:grid sm:max-h-none sm:snap-none sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:pb-0 lg:grid-cols-3">
-          {VIDEOS.map((video) => {
+          {videos.map((video) => {
             const content = (
               <>
                 <div className="relative w-full flex-1 overflow-hidden rounded-theme bg-card sm:aspect-video sm:flex-none">

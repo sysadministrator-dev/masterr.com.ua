@@ -19,7 +19,6 @@ export default async function AdminPhotosPage() {
       <form
         action={createPhoto}
         className="space-y-3 rounded-lg border border-neutral-200 bg-white p-6"
-        encType="multipart/form-data"
       >
         <h2 className="font-medium text-neutral-900">Додати фото</h2>
         <div>

@@ -23,7 +23,7 @@ export default async function EditPhotoPage({ params }: { params: Promise<{ id: 
 
       <Image src={photo.imageUrl} alt={photo.title} width={160} height={160} className="h-40 w-40 rounded object-cover" unoptimized />
 
-      <form action={updatePhotoWithId} className="space-y-3 rounded-lg border border-neutral-200 bg-white p-6" encType="multipart/form-data">
+      <form action={updatePhotoWithId} className="space-y-3 rounded-lg border border-neutral-200 bg-white p-6">
         <div>
           <label className="block text-sm text-neutral-600">Новий файл зображення (необов&apos;язково)</label>
           <input type="file" name="imageFile" accept="image/*" className="mt-1 w-full text-sm" />

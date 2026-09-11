@@ -22,13 +22,13 @@ export function SpecCarousel({ cards }: { cards: SpecCard[] }) {
 
   useLayoutEffect(() => {
     const measure = () => {
-      const el = slideRefs.current[index];
-      if (el) setHeight(el.offsetHeight);
+      const heights = slideRefs.current.map((el) => el?.offsetHeight ?? 0);
+      setHeight(Math.max(...heights));
     };
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-  }, [index]);
+  }, []);
 
   useEffect(() => {
     if (paused || reducedMotion.current) return;

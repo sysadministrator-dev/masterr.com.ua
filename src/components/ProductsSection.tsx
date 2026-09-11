@@ -57,15 +57,25 @@ export function ProductsSection({
               </div>
               <div className="flex flex-1 flex-col p-4">
                 <h3 className="text-sm font-bold leading-snug text-text">{product.title}</h3>
-                <div className="mt-2 flex items-baseline gap-1.5">
-                  <span className="text-lg font-extrabold text-primary">
-                    {pricePerM2.toLocaleString("uk-UA")} ₴
-                  </span>
-                  <span className="text-xs text-muted-foreground line-through">
-                    {oldPrice.toLocaleString("uk-UA")} ₴
-                  </span>
-                  <span className="text-[11px] text-muted-foreground">/ м²</span>
-                </div>
+                {product.priceFrom ? (
+                  <div className="mt-2 flex items-baseline gap-1.5">
+                    <span className="text-xs text-muted-foreground">Від</span>
+                    <span className="text-lg font-extrabold text-primary">
+                      {product.priceFrom.toLocaleString("uk-UA")} ₴
+                    </span>
+                    <span className="text-[11px] text-muted-foreground">/ м²</span>
+                  </div>
+                ) : (
+                  <div className="mt-2 flex items-baseline gap-1.5">
+                    <span className="text-lg font-extrabold text-primary">
+                      {pricePerM2.toLocaleString("uk-UA")} ₴
+                    </span>
+                    <span className="text-xs text-muted-foreground line-through">
+                      {oldPrice.toLocaleString("uk-UA")} ₴
+                    </span>
+                    <span className="text-[11px] text-muted-foreground">/ м²</span>
+                  </div>
+                )}
                 <button
                   type="button"
                   onClick={() => setIsContactOpen(true)}
