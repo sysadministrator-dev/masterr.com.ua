@@ -46,7 +46,7 @@ model SiteSettings {
   workHours      String   @default("Пн - Сб: 9.00 - 19.00")
   email          String   @default("dborcov@gmail.com")
   emailSecondary String   @default("")
-  youtubeUrl     String   @default("https://www.youtube.com/channel/UCMJ686uwV4tUQAuaVskW6dg")
+  youtubeUrl     String   @default("https://www.youtube.com/channel/UCZC-khLJ_wAuLx2lR4hxcFA")
   facebookUrl    String   @default("https://www.facebook.com/masterr.com.ua")
   updatedAt      DateTime @updatedAt
 }
