@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { Hero } from "@/components/Hero";
@@ -13,36 +14,6 @@ const ADVANTAGES = [
   { title: "Широка географія", text: "Працюєм по всіх великих містах та регіонах України." },
   { title: "Висока кваліфікація", text: "Наші співробітники мають досвід роботи більш ніж 20 років." },
 ];
-
-function LatticeMark({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 32 20" className={className} fill="none" aria-hidden>
-      <path
-        d="M1,2 L9,10 L16,2 L23,10 L31,2 M1,18 L9,10 L16,18 L23,10 L31,18"
-        stroke="currentColor"
-        strokeWidth="2.25"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function YoutubeIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
-      <path d="M23 12s0-3.4-.44-5.02a2.94 2.94 0 0 0-2.07-2.08C18.88 4.46 12 4.46 12 4.46s-6.88 0-8.49.44A2.94 2.94 0 0 0 1.44 7C1 8.6 1 12 1 12s0 3.4.44 5.02a2.94 2.94 0 0 0 2.07 2.08c1.61.44 8.49.44 8.49.44s6.88 0 8.49-.44a2.94 2.94 0 0 0 2.07-2.08C23 15.4 23 12 23 12ZM9.75 15.02V8.98L15.5 12l-5.75 3.02Z" />
-    </svg>
-  );
-}
-
-function FacebookIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
-      <path d="M13.5 21v-7.9h2.65l.4-3.08H13.5V8.1c0-.89.25-1.5 1.52-1.5h1.63V3.85A21.6 21.6 0 0 0 14.3 3.7c-2.35 0-3.96 1.43-3.96 4.07v2.27H7.68v3.08h2.66V21h3.16Z" />
-    </svg>
-  );
-}
 
 function ShieldIcon({ className }: { className?: string }) {
   return (
@@ -139,13 +110,13 @@ export default async function Home() {
           </div>
           <div className="flex items-center gap-3">
             {settings.youtubeUrl && (
-              <a href={settings.youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="hover:text-white">
-                <YoutubeIcon className="h-4 w-4" />
+              <a href={settings.youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="hover:opacity-80">
+                <Image src="/icons/youtube.svg" alt="" width={16} height={16} className="h-4 w-4" />
               </a>
             )}
             {settings.facebookUrl && (
-              <a href={settings.facebookUrl} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-white">
-                <FacebookIcon className="h-4 w-4" />
+              <a href={settings.facebookUrl} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:opacity-80">
+                <Image src="/icons/facebook.png" alt="" width={16} height={16} className="h-4 w-4" />
               </a>
             )}
           </div>
@@ -181,7 +152,7 @@ export default async function Home() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section id="home" className="border-b border-border">
+        <section id="home">
           <Hero
             pricePerM2={settings.pricePerM2}
             slides={photos}
@@ -216,7 +187,7 @@ export default async function Home() {
         <VideoSection />
 
         {/* Advantages */}
-        <section className="border-b border-border py-12">
+        <section className="py-12">
           <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 sm:grid-cols-2 lg:grid-cols-4">
             {ADVANTAGES.map((a) => (
               <div key={a.title} className="rounded-theme border border-border bg-neutral-300 p-6">
@@ -229,7 +200,7 @@ export default async function Home() {
         </section>
 
         {/* Description & prices */}
-        <section id="about" className="border-b border-border py-16">
+        <section id="about" className="py-16">
           <div className="mx-auto max-w-6xl px-4">
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Специфікація</p>
             <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-text">Опис та ціни</h2>
@@ -348,7 +319,7 @@ export default async function Home() {
         </section>
 
         {/* Photo gallery */}
-        <section id="gallery" className="border-b border-border py-16">
+        <section id="gallery" className="py-16">
           <div className="mx-auto max-w-6xl px-4">
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Портфоліо</p>
             <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-text">
@@ -359,29 +330,29 @@ export default async function Home() {
         </section>
 
         {/* Contacts */}
-        <section id="contacts" className="py-16">
+        <section id="contacts" className="rounded-t-[25%] bg-neutral-950 py-16">
           <div className="mx-auto max-w-6xl px-4">
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Контакти</p>
-            <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-text">
+            <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-white">
               Зв&apos;язок з нами
             </h2>
-            <div className="grid gap-6 border-t border-border pt-6 sm:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-3">
               <div>
-                <h3 className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Телефон</h3>
-                <p className="text-text">{settings.phonePrimary}</p>
-                <p className="text-text">{settings.phoneSecondary}</p>
+                <h3 className="mb-2 text-xs font-semibold uppercase tracking-widest text-white/50">Телефон</h3>
+                <p className="text-white">{settings.phonePrimary}</p>
+                <p className="text-white">{settings.phoneSecondary}</p>
               </div>
               <div>
-                <h3 className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Часи роботи</h3>
-                <p className="text-text">{settings.workHours}</p>
-                <p className="text-text">м. Дніпро, пр. Слобожанський 20</p>
+                <h3 className="mb-2 text-xs font-semibold uppercase tracking-widest text-white/50">Часи роботи</h3>
+                <p className="text-white">{settings.workHours}</p>
+                <p className="text-white">м. Дніпро, пр. Слобожанський 20</p>
               </div>
               <div>
-                <h3 className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">E-mail</h3>
-                <a href={`mailto:${settings.email}`} className="block text-text hover:text-primary">
+                <h3 className="mb-2 text-xs font-semibold uppercase tracking-widest text-white/50">E-mail</h3>
+                <a href={`mailto:${settings.email}`} className="block text-white hover:text-primary">
                   {settings.email}
                 </a>
-                <a href={`mailto:${settings.emailSecondary}`} className="block text-text hover:text-primary">
+                <a href={`mailto:${settings.emailSecondary}`} className="block text-white hover:text-primary">
                   {settings.emailSecondary}
                 </a>
               </div>
@@ -393,9 +364,9 @@ export default async function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="YouTube"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-muted-foreground hover:bg-accent hover:text-primary"
+                  className="flex h-7 w-7 items-center justify-center transition-opacity hover:opacity-80"
                 >
-                  <YoutubeIcon className="h-4 w-4" />
+                  <Image src="/icons/youtube.svg" alt="" width={28} height={28} className="h-7 w-7" />
                 </a>
               )}
               {settings.facebookUrl && (
@@ -404,9 +375,9 @@ export default async function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Facebook"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-muted-foreground hover:bg-accent hover:text-primary"
+                  className="flex h-7 w-7 items-center justify-center transition-opacity hover:opacity-80"
                 >
-                  <FacebookIcon className="h-4 w-4" />
+                  <Image src="/icons/facebook.png" alt="" width={28} height={28} className="h-7 w-7" />
                 </a>
               )}
             </div>
@@ -414,9 +385,8 @@ export default async function Home() {
         </section>
       </main>
 
-      <footer className="flex flex-col items-center gap-2 border-t border-border bg-card py-6 text-xs text-muted-foreground">
-        <LatticeMark className="h-3 w-6 text-primary" />
-        <span>© {new Date().getFullYear()} Майстерня решіток · HandyVPS</span>
+      <footer className="flex flex-col items-center gap-2 border-t border-white/10 bg-neutral-950 py-6 text-xs text-white/50">
+        <span>© {new Date().getFullYear()} ФОП БОРЦОВ РОЗСУВНІ РЕШІТКИ · HandyVPS</span>
       </footer>
     </>
   );

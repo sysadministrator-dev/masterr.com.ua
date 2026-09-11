@@ -94,8 +94,8 @@ export function SpecCarousel({ cards }: { cards: SpecCard[] }) {
               <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent text-primary">
                 {card.icon}
               </span>
-              <h3 className="mb-3 text-lg font-bold text-text">{card.title}</h3>
-              <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">{card.body}</div>
+              <h3 className="mb-3 text-xl font-bold text-text">{card.title}</h3>
+              <div className="space-y-3 text-base font-medium leading-relaxed text-muted-foreground">{card.body}</div>
             </div>
           ))}
         </div>
