@@ -93,13 +93,12 @@ export function Hero({
           {/* Left Column: Heading, Subtitle, CTA & Slide Controls */}
           <div className="lg:col-span-7 xl:col-span-7 hero-fade-in" style={{ animationDelay: "0.05s" }}>
             <h1 className="text-4xl font-bold leading-[0.96] tracking-[-0.5px] text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)] sm:text-6xl sm:leading-[0.9] sm:tracking-[-1px] lg:text-[70px] xl:text-[78px] lg:leading-[0.88] xl:leading-[0.85]">
-              Захист вашого дому,
+              Захист вашого нерухомого майна,
               <br />
               <span className="text-white">яким можна пишатися</span>
             </h1>
             <p className="mt-6 max-w-xl text-base leading-[1.35] text-white/90 drop-shadow-[0_1px_6px_rgba(0,0,0,0.4)] sm:text-xl lg:text-[22px] lg:leading-[1.28]">
-              Виготовляємо та монтуємо розсувні решітки вручну — надійний захист
-              без зайвого клопоту. Працюємо по всій Україні.
+              Виготовлення розсувних решіток та монтаж всією Україною.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-5">

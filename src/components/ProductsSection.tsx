@@ -30,7 +30,7 @@ export function ProductsSection({
       <div className="mx-auto w-full max-w-6xl">
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Асортимент</p>
         <h2 className="mb-10 text-3xl font-extrabold tracking-tight text-text sm:text-4xl">
-          Розсувні решітки під будь-який проріз
+          Розсувні Решітки будь-яких розмірів
         </h2>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

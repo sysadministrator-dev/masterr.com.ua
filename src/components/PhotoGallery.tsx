@@ -62,6 +62,7 @@ export function PhotoGallery({ photos }: { photos: Photo[] }) {
   const [category, setCategory] = useState<string>("ALL");
   const reducedMotion = useRef(false);
   const filtered = category === "ALL" ? photos : photos.filter((p) => p.category === category);
+  const numberById = new Map(photos.map((p, i) => [p.id, i + 1]));
 
   useEffect(() => {
     reducedMotion.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -102,9 +103,12 @@ export function PhotoGallery({ photos }: { photos: Photo[] }) {
                 initial="hidden"
                 animate="show"
                 variants={variants}
-                className={big ? "col-span-2 aspect-[4/3]" : "aspect-[4/3]"}
+                className={big ? "relative col-span-2 aspect-[4/3]" : "relative aspect-[4/3]"}
               >
                 <GalleryImage id={String(photo.id)} src={photo.imageUrl} alt={photo.title} />
+                <span className="pointer-events-none absolute left-2 top-2 z-10 rounded-full bg-neutral-900/75 px-2.5 py-0.5 text-[11px] font-semibold text-white backdrop-blur-sm">
+                  №{numberById.get(photo.id)}
+                </span>
               </motion.div>
             );
           })}

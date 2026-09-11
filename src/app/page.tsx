@@ -8,7 +8,7 @@ import { SpecCarousel } from "@/components/SpecCarousel";
 export const revalidate = 60;
 
 const ADVANTAGES = [
-  { title: "Гарантія 3 роки", text: "На весь асортимент продукції ми пропонуємо гарантію - 3 роки." },
+  { title: "Гарантія до 3 років", text: "На весь асортимент продукції ми пропонуємо гарантію - 3 роки." },
   { title: "Ціна - якість", text: "Дякуючи власному виробництву ми пропонуєм максимальну якість за доступними цінами." },
   { title: "Широка географія", text: "Працюєм по всіх великих містах та регіонах України." },
   { title: "Висока кваліфікація", text: "Наші співробітники мають досвід роботи більш ніж 20 років." },
@@ -131,7 +131,10 @@ export default async function Home() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 text-[13px] text-white/50">
           <div className="flex flex-wrap gap-x-6 gap-y-1">
             <a href={`mailto:${settings.email}`} className="hover:text-white">{settings.email}</a>
-            <a href={`mailto:${settings.emailSecondary}`} className="hover:text-white">{settings.emailSecondary}</a>
+            {settings.emailSecondary && (
+              <a href={`mailto:${settings.emailSecondary}`} className="hover:text-white">{settings.emailSecondary}</a>
+            )}
+            <span>м. Дніпро, пр. Слобожанський 20</span>
             <span>{settings.workHours}</span>
           </div>
           <div className="flex items-center gap-3">
@@ -151,14 +154,13 @@ export default async function Home() {
       <header className="sticky top-0 z-40 border-b border-white/10 bg-neutral-950/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5">
           <a href="#home" className="flex items-center gap-2.5">
-            <LatticeMark className="h-6 w-11 text-primary" />
             <span className="flex items-center gap-2">
               <span className="text-lg font-extrabold uppercase tracking-tight text-white sm:text-xl">
                 ФОП Борцов Розсувні Решітки
               </span>
               <span className="hidden flex-col text-[10px] font-medium italic leading-[1.15] text-white/45 sm:flex">
+                <span>надійний</span>
                 <span>захист</span>
-                <span>та монтаж</span>
               </span>
             </span>
           </a>
@@ -192,10 +194,10 @@ export default async function Home() {
 
           <div className="mx-auto max-w-6xl px-4 py-8">
             <div className="flex flex-wrap gap-x-10 gap-y-2 rounded-theme border border-border bg-card px-6 py-4 text-sm text-muted-foreground">
-              <span>Гарантія <span className="font-semibold text-primary">3 роки</span></span>
+              <span>Гарантія до <span className="font-semibold text-primary">3 років</span></span>
               <span>Досвід <span className="font-semibold text-primary">20+ років</span></span>
               <span>Виробництво до <span className="font-semibold text-primary">150 м²/тиждень</span></span>
-              <span>Термін від <span className="font-semibold text-primary">3 днів</span></span>
+              <span>Термін виготовлення від <span className="font-semibold text-primary">3 днів</span></span>
             </div>
           </div>
         </section>
@@ -217,9 +219,9 @@ export default async function Home() {
         <section className="border-b border-border py-12">
           <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 sm:grid-cols-2 lg:grid-cols-4">
             {ADVANTAGES.map((a) => (
-              <div key={a.title} className="rounded-theme border border-border bg-card p-6">
+              <div key={a.title} className="rounded-theme border border-border bg-neutral-300 p-6">
                 <span className="mb-4 block h-2 w-8 rounded-full bg-primary" aria-hidden />
-                <h3 className="mb-2 text-lg font-bold text-text">{a.title}</h3>
+                <h3 className="mb-2 text-xl font-extrabold text-text">{a.title}</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">{a.text}</p>
               </div>
             ))}
@@ -266,8 +268,9 @@ export default async function Home() {
                       <p>Весь процес виготовлення виробів відбувається тільки на власному вітчизняному виробництві!</p>
                       <ul className="rivet-list space-y-1.5">
                         <li>Смуга 25×4мм та 20×4мм, кріплення — стальні заклепки, виключно вручну</li>
+                        <li>Лутка - кут металевий 35×35мм</li>
                         <li>Замикання — навісні або врізні замки, за бажанням замовника</li>
-                        <li>Фарбування — полімерно-порошкове, будь-який колір по каталогу RAL</li>
+                        <li>Фарбування — полімерно-порошкове, будь-який колір за каталогом RAL</li>
                         <li>Монтаж без руйнування відкосів, прибирання будівельним пилососом</li>
                       </ul>
                     </>
@@ -306,9 +309,10 @@ export default async function Home() {
                         <span className="text-lg font-medium text-muted-foreground">грн/м²</span>
                       </p>
                       <p>
-                        Без урахування вартості відправки та монтажу. На вироби особливо малих та надвеликих
-                        розмірів ціна формується з додатковими націнками. Оплата — готівковий або безготівковий
-                        розрахунок з ПДВ.
+                        Ціна за розсувні решітки не менш ніж 1,5м² в стандартному кольорі (білий, чорний,
+                        коричневий) без урахування відправки та монтажу. Додаткові кронштейни, анкерні пластини та
+                        стійки рахуються окремо. На вироби особливо малих та надвеликих розмірів ціна формується з
+                        додатковими націнками. Будь-яка форма оплати: ФОП 2 група, ФОП 3 група, ТОВ з ПДВ.
                       </p>
                     </>
                   ),
@@ -370,6 +374,7 @@ export default async function Home() {
               <div>
                 <h3 className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Часи роботи</h3>
                 <p className="text-text">{settings.workHours}</p>
+                <p className="text-text">м. Дніпро, пр. Слобожанський 20</p>
               </div>
               <div>
                 <h3 className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">E-mail</h3>

@@ -32,7 +32,7 @@ export function SpecCarousel({ cards }: { cards: SpecCard[] }) {
 
   useEffect(() => {
     if (paused || reducedMotion.current) return;
-    const id = setInterval(() => setIndex((i) => (i + 1) % count), 6000);
+    const id = setInterval(() => setIndex((i) => (i + 1) % count), 8000);
     return () => clearInterval(id);
   }, [paused, count]);
 
