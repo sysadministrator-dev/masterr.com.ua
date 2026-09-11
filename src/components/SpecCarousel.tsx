@@ -32,7 +32,7 @@ export function SpecCarousel({ cards }: { cards: SpecCard[] }) {
 
   useEffect(() => {
     if (paused || reducedMotion.current) return;
-    const id = setInterval(() => setIndex((i) => (i + 1) % count), 8000);
+    const id = setInterval(() => setIndex((i) => (i + 1) % count), 12000);
     return () => clearInterval(id);
   }, [paused, count]);
 
@@ -76,7 +76,7 @@ export function SpecCarousel({ cards }: { cards: SpecCard[] }) {
       </div>
 
       <div
-        className="overflow-hidden rounded-theme border border-border bg-card transition-[height] duration-300 ease-out motion-reduce:transition-none"
+        className="overflow-hidden rounded-theme border border-border bg-neutral-300 transition-[height] duration-300 ease-out motion-reduce:transition-none"
         style={{ height }}
       >
         <div

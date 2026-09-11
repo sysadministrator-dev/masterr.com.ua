@@ -416,7 +416,7 @@ export default async function Home() {
 
       <footer className="flex flex-col items-center gap-2 border-t border-border bg-card py-6 text-xs text-muted-foreground">
         <LatticeMark className="h-3 w-6 text-primary" />
-        <span>© {new Date().getFullYear()} Майстерня решіток · Компанія-виробник</span>
+        <span>© {new Date().getFullYear()} Майстерня решіток · HandyVPS</span>
       </footer>
     </>
   );
