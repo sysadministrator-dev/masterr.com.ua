@@ -20,11 +20,14 @@ export async function createPhoto(formData: FormData) {
   const imageUrl = await resolveImageUrl(formData);
   const title = String(formData.get("title") ?? "");
   const category = parseCategory(formData.get("category"));
-  const order = Number(formData.get("order") ?? 0);
+  const visible = formData.get("visible") === "true";
 
   if (!imageUrl || !title) return;
 
-  await prisma.photo.create({ data: { imageUrl, title, category, order } });
+  const last = await prisma.photo.findFirst({ orderBy: { order: "desc" } });
+  const order = (last?.order ?? 0) + 1;
+
+  await prisma.photo.create({ data: { imageUrl, title, category, order, visible } });
   revalidatePath("/admin/photos");
   revalidatePath("/");
 }
@@ -44,6 +47,12 @@ export async function updatePhoto(id: number, formData: FormData) {
 
 export async function deletePhoto(id: number) {
   await prisma.photo.delete({ where: { id } });
+  revalidatePath("/admin/photos");
+  revalidatePath("/");
+}
+
+export async function setPhotoVisibility(id: number, visible: boolean) {
+  await prisma.photo.update({ where: { id }, data: { visible } });
   revalidatePath("/admin/photos");
   revalidatePath("/");
 }

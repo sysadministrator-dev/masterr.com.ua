@@ -77,6 +77,7 @@ export function Hero({
                 src={slide.imageUrl}
                 alt={slide.title || "Фонове зображення розсувних решіток"}
                 fill
+                unoptimized
                 priority={i === 0}
                 className="object-cover object-center"
               />
@@ -145,6 +146,7 @@ export function Hero({
                         src={slide.imageUrl}
                         alt={slide.title || "Розсувні решітки на вікна та двері"}
                         fill
+                        unoptimized
                         priority={i === 0}
                         className="object-cover transition-transform duration-500 hover:scale-105"
                       />

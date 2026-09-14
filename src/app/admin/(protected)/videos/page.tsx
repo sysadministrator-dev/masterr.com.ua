@@ -1,67 +1,89 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Plus } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { createVideo, deleteVideo } from "@/app/actions/videos";
+import { createVideo } from "@/app/actions/videos";
 
 export default async function AdminVideosPage() {
   const videos = await prisma.video.findMany({ orderBy: { order: "asc" } });
 
   return (
-    <div className="space-y-8">
-      <h1 className="text-2xl font-semibold text-neutral-900">Відео об&apos;єктів</h1>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-neutral-900">Відео об&apos;єктів</h1>
+        <span className="text-sm text-neutral-500">{videos.length} відео</span>
+      </div>
+      <p className="text-sm text-neutral-500">
+        Картки з розділу «Процес → Відео об&apos;єктів» на сайті. Тут можна додавати нові відео та редагувати посилання і підпис кожної картки.
+      </p>
 
-      <form
-        action={createVideo}
-        className="space-y-3 rounded-lg border border-neutral-200 bg-white p-6"
-      >
-        <h2 className="font-medium text-neutral-900">Додати відео</h2>
-        <div>
-          <label className="block text-sm text-neutral-600">Файл прев&apos;ю (зображення)</label>
-          <input type="file" name="thumbnailFile" accept="image/*" className="mt-1 w-full text-sm" />
-        </div>
-        <div>
-          <label className="block text-sm text-neutral-600">або URL прев&apos;ю</label>
-          <input name="thumbnailUrl" placeholder="/images/preview-video1.jpg" className="mt-1 w-full rounded border border-neutral-300 px-3 py-2 text-sm" />
-        </div>
-        <div>
-          <label className="block text-sm text-neutral-600">URL відео (YouTube, mp4 тощо)</label>
-          <input name="videoUrl" placeholder="https://..." className="mt-1 w-full rounded border border-neutral-300 px-3 py-2 text-sm" />
-        </div>
-        <div>
-          <label className="block text-sm text-neutral-600">Підпис</label>
-          <input name="title" required className="mt-1 w-full rounded border border-neutral-300 px-3 py-2 text-sm" />
-        </div>
-        <div className="w-24">
-          <label className="block text-sm text-neutral-600">Порядок</label>
-          <input name="order" type="number" defaultValue={0} className="mt-1 w-full rounded border border-neutral-300 px-3 py-2 text-sm" />
-        </div>
-        <button type="submit" className="rounded bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-700">
-          Додати
-        </button>
-      </form>
+      <details className="group rounded-2xl border border-neutral-200 bg-white">
+        <summary className="flex cursor-pointer list-none items-center justify-between px-5 py-4 [&::-webkit-details-marker]:hidden">
+          <span className="flex items-center gap-2 text-sm font-semibold text-neutral-900">
+            <Plus className="h-4 w-4" />
+            Додати відео
+          </span>
+          <span className="text-neutral-400 transition-transform group-open:rotate-180">⌄</span>
+        </summary>
 
-      <ul className="divide-y divide-neutral-200 rounded-lg border border-neutral-200 bg-white">
-        {videos.map((video) => (
-          <li key={video.id} className="flex items-center gap-4 p-4">
-            <Image src={video.thumbnailUrl} alt={video.title} width={64} height={64} className="h-16 w-16 rounded object-cover" unoptimized />
-            <div className="flex-1">
-              <p className="font-medium text-neutral-900">{video.title}</p>
-              <p className="text-sm text-neutral-500">
-                {video.videoUrl ? video.videoUrl : "URL відео не вказано"} · порядок {video.order}
-              </p>
+        <form action={createVideo} className="space-y-4 px-5 pb-5 pt-1">
+          <div>
+            <label className="mb-1 block text-xs font-medium text-neutral-500">Посилання на YouTube</label>
+            <input
+              name="videoUrl"
+              placeholder="https://www.youtube.com/watch?v=..."
+              required
+              className="w-full rounded-lg border border-neutral-300 px-3 py-2.5 text-sm focus:border-neutral-900 focus:outline-none"
+            />
+            <p className="mt-1 text-xs text-neutral-400">Прев&apos;ю картки підтягується автоматично з YouTube за цим посиланням.</p>
+          </div>
+
+          <div className="flex flex-wrap items-end gap-4">
+            <div className="min-w-[200px] flex-1">
+              <label className="mb-1 block text-xs font-medium text-neutral-500">Підпис</label>
+              <input
+                name="title"
+                required
+                className="w-full rounded-lg border border-neutral-300 px-3 py-2.5 text-sm focus:border-neutral-900 focus:outline-none"
+              />
             </div>
-            <Link href={`/admin/videos/${video.id}`} className="text-sm text-neutral-600 hover:text-neutral-900">
-              Редагувати
-            </Link>
-            <form action={deleteVideo.bind(null, video.id)}>
-              <button type="submit" className="text-sm text-red-600 hover:text-red-800">
-                Видалити
-              </button>
-            </form>
-          </li>
+            <button
+              type="submit"
+              className="rounded-lg bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-neutral-700"
+            >
+              Додати
+            </button>
+          </div>
+        </form>
+      </details>
+
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {videos.map((video) => (
+          <Link
+            key={video.id}
+            href={`/admin/videos/${video.id}`}
+            className="flex items-center gap-3 rounded-xl border border-neutral-200 bg-white p-3 transition-colors hover:border-neutral-900"
+          >
+            <Image
+              src={video.thumbnailUrl}
+              alt={video.title}
+              width={56}
+              height={56}
+              className="h-14 w-14 shrink-0 rounded-lg object-cover"
+              unoptimized
+            />
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-semibold text-neutral-900">{video.title}</p>
+              <p className="truncate text-xs text-neutral-500">{video.videoUrl || "URL відео не вказано"}</p>
+            </div>
+          </Link>
         ))}
-        {videos.length === 0 && <li className="p-4 text-sm text-neutral-500">Відео ще не додано.</li>}
-      </ul>
+        {videos.length === 0 && (
+          <p className="col-span-full rounded-xl border border-dashed border-neutral-300 p-6 text-center text-sm text-neutral-500">
+            Відео ще не додано.
+          </p>
+        )}
+      </div>
     </div>
   );
 }

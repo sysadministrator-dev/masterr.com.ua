@@ -2,21 +2,25 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import { isUploadableFile, saveUploadedFile } from "@/lib/upload";
 
-async function resolveThumbnailUrl(formData: FormData): Promise<string> {
-  const file = formData.get("thumbnailFile");
-  if (isUploadableFile(file)) return saveUploadedFile(file);
-  return String(formData.get("thumbnailUrl") ?? "");
+const YOUTUBE_ID_PATTERN = /(?:youtube\.com\/(?:shorts\/|watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{6,})/;
+
+function youtubeThumbnailUrl(videoUrl: string): string | null {
+  const match = videoUrl.match(YOUTUBE_ID_PATTERN);
+  return match ? `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg` : null;
 }
 
 export async function createVideo(formData: FormData) {
-  const thumbnailUrl = await resolveThumbnailUrl(formData);
-  const videoUrl = String(formData.get("videoUrl") ?? "");
-  const title = String(formData.get("title") ?? "");
-  const order = Number(formData.get("order") ?? 0);
+  const videoUrl = String(formData.get("videoUrl") ?? "").trim();
+  const title = String(formData.get("title") ?? "").trim();
 
-  if (!thumbnailUrl || !title) return;
+  if (!videoUrl || !title) return;
+
+  const thumbnailUrl = youtubeThumbnailUrl(videoUrl);
+  if (!thumbnailUrl) return;
+
+  const last = await prisma.video.findFirst({ orderBy: { order: "desc" } });
+  const order = (last?.order ?? 0) + 1;
 
   await prisma.video.create({ data: { thumbnailUrl, videoUrl, title, order } });
   revalidatePath("/admin/videos");
@@ -24,20 +28,15 @@ export async function createVideo(formData: FormData) {
 }
 
 export async function updateVideo(id: number, formData: FormData) {
-  const thumbnailUrl = await resolveThumbnailUrl(formData);
-  const videoUrl = String(formData.get("videoUrl") ?? "");
-  const title = String(formData.get("title") ?? "");
-  const order = Number(formData.get("order") ?? 0);
+  const videoUrl = String(formData.get("videoUrl") ?? "").trim();
+  const title = String(formData.get("title") ?? "").trim();
 
-  if (!thumbnailUrl || !title) return;
+  if (!videoUrl || !title) return;
 
-  await prisma.video.update({ where: { id }, data: { thumbnailUrl, videoUrl, title, order } });
-  revalidatePath("/admin/videos");
-  revalidatePath("/");
-}
+  const thumbnailUrl = youtubeThumbnailUrl(videoUrl);
+  if (!thumbnailUrl) return;
 
-export async function deleteVideo(id: number) {
-  await prisma.video.delete({ where: { id } });
+  await prisma.video.update({ where: { id }, data: { thumbnailUrl, videoUrl, title } });
   revalidatePath("/admin/videos");
   revalidatePath("/");
 }

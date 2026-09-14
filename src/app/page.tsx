@@ -91,9 +91,10 @@ const PARTNERS = [
 ];
 
 export default async function Home() {
-  const [photos, videos, settings] = await Promise.all([
-    prisma.photo.findMany({ orderBy: { order: "asc" } }),
+  const [photos, videos, products, settings] = await Promise.all([
+    prisma.photo.findMany({ where: { visible: true }, orderBy: { order: "asc" } }),
     prisma.video.findMany({ orderBy: { order: "asc" } }),
+    prisma.product.findMany({ orderBy: { order: "asc" } }),
     prisma.siteSettings.upsert({ where: { id: 1 }, update: {}, create: { id: 1 } }),
   ]);
 
@@ -176,7 +177,7 @@ export default async function Home() {
 
         {/* Products */}
         <ProductsSection
-          pricePerM2={settings.pricePerM2}
+          products={products}
           phonePrimary={settings.phonePrimary}
           phoneSecondary={settings.phoneSecondary}
           email={settings.email}

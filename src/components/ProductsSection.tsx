@@ -3,10 +3,10 @@
 import Image from "next/image";
 import { useState } from "react";
 import ContactModal from "@/components/ContactModal";
-import { PRODUCTS } from "@/components/productsData";
+import type { Product } from "@/generated/prisma/client";
 
 interface ProductsSectionProps {
-  pricePerM2: number;
+  products: Product[];
   phonePrimary?: string;
   phoneSecondary?: string;
   email?: string;
@@ -15,7 +15,7 @@ interface ProductsSectionProps {
 }
 
 export function ProductsSection({
-  pricePerM2,
+  products,
   phonePrimary,
   phoneSecondary,
   email,
@@ -23,7 +23,6 @@ export function ProductsSection({
   workHours,
 }: ProductsSectionProps) {
   const [isContactOpen, setIsContactOpen] = useState(false);
-  const oldPrice = pricePerM2 + 400;
 
   return (
     <section className="border-b border-border bg-background px-4 py-16">
@@ -34,7 +33,7 @@ export function ProductsSection({
         </h2>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {PRODUCTS.map((product) => (
+          {products.map((product) => (
             <div
               key={product.id}
               className="flex flex-col overflow-hidden rounded-theme border border-border bg-card"
@@ -57,21 +56,21 @@ export function ProductsSection({
               </div>
               <div className="flex flex-1 flex-col p-4">
                 <h3 className="text-sm font-bold leading-snug text-text">{product.title}</h3>
-                {product.priceFrom ? (
+                {product.oldPrice ? (
                   <div className="mt-2 flex items-baseline gap-1.5">
-                    <span className="text-xs text-muted-foreground">Від</span>
                     <span className="text-lg font-extrabold text-primary">
-                      {product.priceFrom.toLocaleString("uk-UA")} ₴
+                      {product.price.toLocaleString("uk-UA")} ₴
+                    </span>
+                    <span className="text-xs text-muted-foreground line-through">
+                      {product.oldPrice.toLocaleString("uk-UA")} ₴
                     </span>
                     <span className="text-[11px] text-muted-foreground">/ м²</span>
                   </div>
                 ) : (
                   <div className="mt-2 flex items-baseline gap-1.5">
+                    <span className="text-xs text-muted-foreground">Від</span>
                     <span className="text-lg font-extrabold text-primary">
-                      {pricePerM2.toLocaleString("uk-UA")} ₴
-                    </span>
-                    <span className="text-xs text-muted-foreground line-through">
-                      {oldPrice.toLocaleString("uk-UA")} ₴
+                      {product.price.toLocaleString("uk-UA")} ₴
                     </span>
                     <span className="text-[11px] text-muted-foreground">/ м²</span>
                   </div>

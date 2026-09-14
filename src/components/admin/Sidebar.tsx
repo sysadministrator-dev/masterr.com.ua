@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   Image as ImageIcon,
   Video,
+  Package,
   Settings,
   LogOut,
   ExternalLink,
@@ -17,6 +18,7 @@ import { logout } from "@/app/actions/auth";
 
 const NAV_ITEMS = [
   { href: "/admin", label: "Дашборд", icon: LayoutDashboard },
+  { href: "/admin/products", label: "Асортимент", icon: Package },
   { href: "/admin/photos", label: "Фото", icon: ImageIcon },
   { href: "/admin/videos", label: "Відео", icon: Video },
   { href: "/admin/settings", label: "Налаштування", icon: Settings },

@@ -1,57 +1,57 @@
-import { notFound, redirect } from "next/navigation";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 import Image from "next/image";
+import { ArrowLeft } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { updateVideo, deleteVideo } from "@/app/actions/videos";
+import { updateVideo } from "@/app/actions/videos";
 
 export default async function EditVideoPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const video = await prisma.video.findUnique({ where: { id: Number(id) } });
   if (!video) notFound();
 
-  const videoId = video.id;
-  const updateVideoWithId = updateVideo.bind(null, videoId);
-
-  async function deleteAndRedirect() {
-    "use server";
-    await deleteVideo(videoId);
-    redirect("/admin/videos");
-  }
+  const updateVideoWithId = updateVideo.bind(null, video.id);
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold text-neutral-900">Редагувати відео</h1>
+      <Link href="/admin/videos" className="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-500 hover:text-neutral-900">
+        <ArrowLeft className="h-4 w-4" />
+        До відео об&apos;єктів
+      </Link>
 
-      <Image src={video.thumbnailUrl} alt={video.title} width={160} height={160} className="h-40 w-40 rounded object-cover" unoptimized />
+      <div className="flex items-center gap-4">
+        <Image src={video.thumbnailUrl} alt={video.title} width={72} height={72} className="h-18 w-18 shrink-0 rounded-xl object-cover" unoptimized />
+        <div>
+          <h1 className="text-xl font-bold text-neutral-900">Редагувати картку</h1>
+          <p className="text-sm text-neutral-500">{video.title}</p>
+        </div>
+      </div>
 
-      <form action={updateVideoWithId} className="space-y-3 rounded-lg border border-neutral-200 bg-white p-6">
+      <form action={updateVideoWithId} className="space-y-4 rounded-2xl border border-neutral-200 bg-white p-5">
         <div>
-          <label className="block text-sm text-neutral-600">Новий файл прев&apos;ю (необов&apos;язково)</label>
-          <input type="file" name="thumbnailFile" accept="image/*" className="mt-1 w-full text-sm" />
+          <label className="mb-1 block text-xs font-medium text-neutral-500">Посилання на YouTube</label>
+          <input
+            name="videoUrl"
+            defaultValue={video.videoUrl}
+            placeholder="https://www.youtube.com/watch?v=..."
+            required
+            className="w-full rounded-lg border border-neutral-300 px-3 py-2.5 text-sm focus:border-neutral-900 focus:outline-none"
+          />
+          <p className="mt-1 text-xs text-neutral-400">Прев&apos;ю картки підтягується автоматично з YouTube за цим посиланням.</p>
         </div>
+
         <div>
-          <label className="block text-sm text-neutral-600">URL прев&apos;ю</label>
-          <input name="thumbnailUrl" defaultValue={video.thumbnailUrl} className="mt-1 w-full rounded border border-neutral-300 px-3 py-2 text-sm" />
+          <label className="mb-1 block text-xs font-medium text-neutral-500">Підпис</label>
+          <input
+            name="title"
+            defaultValue={video.title}
+            required
+            className="w-full rounded-lg border border-neutral-300 px-3 py-2.5 text-sm focus:border-neutral-900 focus:outline-none"
+          />
         </div>
-        <div>
-          <label className="block text-sm text-neutral-600">URL відео</label>
-          <input name="videoUrl" defaultValue={video.videoUrl} className="mt-1 w-full rounded border border-neutral-300 px-3 py-2 text-sm" />
-        </div>
-        <div>
-          <label className="block text-sm text-neutral-600">Підпис</label>
-          <input name="title" defaultValue={video.title} required className="mt-1 w-full rounded border border-neutral-300 px-3 py-2 text-sm" />
-        </div>
-        <div className="w-24">
-          <label className="block text-sm text-neutral-600">Порядок</label>
-          <input name="order" type="number" defaultValue={video.order} className="mt-1 w-full rounded border border-neutral-300 px-3 py-2 text-sm" />
-        </div>
-        <button type="submit" className="rounded bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-700">
+
+        <button type="submit" className="rounded-lg bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-neutral-700">
           Зберегти
-        </button>
-      </form>
-
-      <form action={deleteAndRedirect}>
-        <button type="submit" className="text-sm text-red-600 hover:text-red-800">
-          Видалити відео
         </button>
       </form>
     </div>

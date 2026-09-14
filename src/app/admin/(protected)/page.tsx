@@ -1,15 +1,23 @@
 import Link from "next/link";
-import { Image as ImageIcon, Video, Banknote } from "lucide-react";
+import { Image as ImageIcon, Video, Package, Banknote } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 
 export default async function AdminDashboardPage() {
-  const [photoCount, videoCount, settings] = await Promise.all([
+  const [photoCount, videoCount, productCount, settings] = await Promise.all([
     prisma.photo.count(),
     prisma.video.count(),
+    prisma.product.count(),
     prisma.siteSettings.upsert({ where: { id: 1 }, update: {}, create: { id: 1 } }),
   ]);
 
   const cards = [
+    {
+      icon: Package,
+      title: "Асортимент",
+      value: `${productCount}`,
+      description: "Карток товарів у розділі «Асортимент».",
+      href: "/admin/products",
+    },
     {
       icon: ImageIcon,
       title: "Фото",
@@ -41,7 +49,7 @@ export default async function AdminDashboardPage() {
         Зміни на сайті з&apos;являються одразу після збереження.
       </p>
 
-      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {cards.map(({ icon: Icon, title, value, description, href }) => (
           <Link
             key={title}
