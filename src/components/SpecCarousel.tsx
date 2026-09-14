@@ -49,7 +49,7 @@ export function SpecCarousel({ cards }: { cards: SpecCard[] }) {
           type="button"
           onClick={() => go(index - 1)}
           aria-label="Попередня картка"
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-text transition-colors hover:border-primary hover:text-primary"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-primary text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
         >
           ‹
         </button>
@@ -69,7 +69,7 @@ export function SpecCarousel({ cards }: { cards: SpecCard[] }) {
           type="button"
           onClick={() => go(index + 1)}
           aria-label="Наступна картка"
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-text transition-colors hover:border-primary hover:text-primary"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-primary text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
         >
           ›
         </button>
