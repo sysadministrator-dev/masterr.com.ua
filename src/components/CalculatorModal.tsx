@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { viberHref } from "@/lib/phone";
 
 interface CalculatorModalProps {
   isOpen: boolean;
@@ -67,8 +68,6 @@ export default function CalculatorModal({
       setHeight((presetH / 100).toString());
     }
   };
-
-  const cleanPhone = phonePrimary.replace(/[^+\d]/g, "");
 
   const maxDimension = unit === "cm" ? MAX_DIMENSION_CM : MAX_DIMENSION_CM / 100;
   const clampDimension = (raw: string) => {
@@ -312,10 +311,10 @@ export default function CalculatorModal({
           {/* Actions & Ordering */}
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <a
-              href={`tel:${cleanPhone}`}
+              href={viberHref(phonePrimary)}
               className="inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-sm transition hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-primary sm:text-base"
             >
-              <span>📞</span>
+              <span>💬</span>
               Замовити замір: {phonePrimary}
             </a>
 

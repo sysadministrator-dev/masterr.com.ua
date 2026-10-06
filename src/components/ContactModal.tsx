@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { viberHref } from "@/lib/phone";
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -40,7 +41,6 @@ export default function ContactModal({
 
   if (!isOpen) return null;
 
-  const toTel = (phone: string) => phone.replace(/[^+\d]/g, "");
 
   return (
     <div
@@ -79,19 +79,19 @@ export default function ContactModal({
 
         <div className="space-y-3 px-6 py-6">
           <a
-            href={`tel:${toTel(phonePrimary)}`}
+            href={viberHref(phonePrimary)}
             className="flex items-center gap-3 rounded-2xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-base font-bold text-neutral-900 transition hover:border-primary hover:bg-primary/5"
           >
-            <span>📞</span>
+            <span>💬</span>
             {phonePrimary}
           </a>
 
           {phoneSecondary && (
             <a
-              href={`tel:${toTel(phoneSecondary)}`}
+              href={viberHref(phoneSecondary)}
               className="flex items-center gap-3 rounded-2xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-base font-semibold text-neutral-700 transition hover:border-primary hover:bg-primary/5"
             >
-              <span>📞</span>
+              <span>💬</span>
               {phoneSecondary}
             </a>
           )}

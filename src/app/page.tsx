@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { viberHref } from "@/lib/phone";
 import { prisma } from "@/lib/prisma";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { Hero } from "@/components/Hero";
@@ -144,7 +145,7 @@ export default async function Home() {
             <a href="#contacts" className="transition-colors hover:text-white">Контакти</a>
           </nav>
           <a
-            href={`tel:${settings.phonePrimary.replace(/[^+\d]/g, "")}`}
+            href={viberHref(settings.phonePrimary)}
             className="whitespace-nowrap rounded-full border border-white/30 px-3 py-2 text-[11px] font-semibold text-white transition-colors hover:bg-white hover:text-neutral-950 sm:px-4 sm:text-sm"
           >
             {settings.phonePrimary}
@@ -341,8 +342,8 @@ export default async function Home() {
             <div className="grid gap-6 sm:grid-cols-3">
               <div>
                 <h3 className="mb-2 text-xs font-semibold uppercase tracking-widest text-white/50">Телефон</h3>
-                <p className="text-white">{settings.phonePrimary}</p>
-                <p className="text-white">{settings.phoneSecondary}</p>
+                <a href={viberHref(settings.phonePrimary)} className="block text-white hover:text-primary">{settings.phonePrimary}</a>
+                <a href={viberHref(settings.phoneSecondary)} className="block text-white hover:text-primary">{settings.phoneSecondary}</a>
               </div>
               <div>
                 <h3 className="mb-2 text-xs font-semibold uppercase tracking-widest text-white/50">Часи роботи</h3>
