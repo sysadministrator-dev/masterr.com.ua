@@ -83,7 +83,8 @@ export default function ContactModal({
             className="flex items-center gap-3 rounded-2xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-base font-bold text-neutral-900 transition hover:border-primary hover:bg-primary/5"
           >
             <span>💬</span>
-            {phonePrimary}
+            <span className="flex-1">{phonePrimary}</span>
+            <span className="text-sm font-semibold text-primary">Написати в Viber</span>
           </a>
 
           {phoneSecondary && (
@@ -92,7 +93,8 @@ export default function ContactModal({
               className="flex items-center gap-3 rounded-2xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-base font-semibold text-neutral-700 transition hover:border-primary hover:bg-primary/5"
             >
               <span>💬</span>
-              {phoneSecondary}
+              <span className="flex-1">{phoneSecondary}</span>
+              <span className="text-sm font-semibold text-primary">Написати в Viber</span>
             </a>
           )}
 

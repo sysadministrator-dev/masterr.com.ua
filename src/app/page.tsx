@@ -148,7 +148,7 @@ export default async function Home() {
             href={viberHref(settings.phonePrimary)}
             className="whitespace-nowrap rounded-full border border-white/30 px-3 py-2 text-[11px] font-semibold text-white transition-colors hover:bg-white hover:text-neutral-950 sm:px-4 sm:text-sm"
           >
-            {settings.phonePrimary}
+            Написати в Viber
           </a>
         </div>
       </header>
@@ -342,8 +342,14 @@ export default async function Home() {
             <div className="grid gap-6 sm:grid-cols-3">
               <div>
                 <h3 className="mb-2 text-xs font-semibold uppercase tracking-widest text-white/50">Телефон</h3>
-                <a href={viberHref(settings.phonePrimary)} className="block text-white hover:text-primary">{settings.phonePrimary}</a>
-                <a href={viberHref(settings.phoneSecondary)} className="block text-white hover:text-primary">{settings.phoneSecondary}</a>
+                {[settings.phonePrimary, settings.phoneSecondary].filter(Boolean).map((phone) => (
+                  <p key={phone} className="text-white">
+                    {phone}{" "}
+                    <a href={viberHref(phone)} className="whitespace-nowrap text-primary underline-offset-4 hover:underline">
+                      Написати в Viber
+                    </a>
+                  </p>
+                ))}
               </div>
               <div>
                 <h3 className="mb-2 text-xs font-semibold uppercase tracking-widest text-white/50">Часи роботи</h3>
